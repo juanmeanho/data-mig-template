@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="249" height="182" viewBox="0 0 249 182">
+  <defs>
+    <rect id="visas_hover-a" width="249" height="182" x="0" y="0"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <mask id="visas_hover-b" fill="#fff">
+      <use xlink:href="#visas_hover-a"/>
+    </mask>
+    <use fill="#F05A23" xlink:href="#visas_hover-a"/>
+    <g fill="#FFF" mask="url(#visas_hover-b)" opacity=".2">
+      <polygon points="0 0 0 62 62 62"/>
+      <polygon points="62 0 62 62 124 62"/>
+      <polygon points="124 0 124 62 186 62"/>
+      <polygon points="186 0 186 62 248 62"/>
+      <polygon points="0 62 0 124 62 124"/>
+      <polygon points="62 62 62 124 124 124"/>
+      <polygon points="124 62 124 124 186 124"/>
+      <polygon points="186 62 186 124 248 124"/>
+      <polygon points="0 124 0 186 62 186"/>
+      <polygon points="62 124 62 186 124 186"/>
+      <polygon points="124 124 124 186 186 186"/>
+      <polygon points="186 124 186 186 248 186"/>
+    </g>
+  </g>
+</svg>

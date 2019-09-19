@@ -19,12 +19,9 @@
                         </v-card-text>
                     </v-card>
                 </v-flex>
-                <v-flex xs12 md12 lg6>
+                <v-flex lg6 mt-12 pt-12 ml-12>
                     <div style="background-color:#ffffff;">
-                        <v-img src="../assets/image-new.jpg" 
-                            :class="{'size-image': $vuetify.breakpoint.lg,
-                            'size-image-md': $vuetify.breakpoint.md,
-                            'size-image-xs': $vuetify.breakpoint.xs}">
+                        <v-img src="@/assets/group-12.png" height="auto" width="585px">
                         </v-img> 
                     </div>
                 </v-flex>

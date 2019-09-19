@@ -8,19 +8,22 @@
                         <v-flex>
                             <div class="borders-left borders-right">
                                 <v-card  color="rgba(150,150,150,0.2)" flat height="70" class="rounded-card mt-12 px-2">
-                                    <div class="hero-footer" style="height:100%;">
+                                    <div class="hero-footer"
+                                    :class="{'hero-footer-image': $vuetify.breakpoint.mdAndUp}"
+                                     style="height:100%;">
                                         <v-layout>
                                             <div>
                                                 <v-card-text class="numbers" 
-                                                :class="{'mt-2': $vuetify.breakpoint.smAndUp,
-                                                'mt-0': $vuetify.breakpoint.xsOnly}">
+                                                :class="{'mt-n3': $vuetify.breakpoint.xsOnly,
+                                                         'mt-0': $vuetify.breakpoint.smAndUp}">
                                                 {{ items.text }}
                                                 </v-card-text>
                                             </div>
                                             <div>
-                                                <v-card-text class="flujos mt-0"
-                                                :class="{'mt-2': $vuetify.breakpoint.smAndUp,
-                                                'mt-n1': $vuetify.breakpoint.xsOnly}">
+                                                <v-card-text class="flujos"
+                                                :class="{'mt-n2': $vuetify.breakpoint.xsOnly,
+                                                         'mt-1': $vuetify.breakpoint.smAndUp}"
+                                                >
                                                 {{ items.title }}
                                                 </v-card-text>
                                             </div>
@@ -43,9 +46,9 @@ export default {
   data: () => ({
     //
     cards: [
-      { title: 'Flujos', text: '01', flex: 3 },
-      { title: 'Visas', text: '02', flex: 3 },
-      { title: 'Indicadores de Politica', text: '03', flex: 3 },
+      { title: 'Indicadores de Politica', text: '01', flex: 3 },
+      { title: 'Flujos', text: '02', flex: 3 },
+      { title: 'Visas', text: '03', flex: 3 },
       { title: 'Acuerdos Internacionales', text: '04', flex: 3 }
     ],
         borderLeft: 'borders-left',

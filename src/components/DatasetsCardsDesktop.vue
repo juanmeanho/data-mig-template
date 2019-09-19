@@ -5,18 +5,17 @@
             <v-col
               v-for="card in cards" :key="card.title" :cols="card.flex"
             >
-              <v-card class="rounded-card pa-6" style="cursor:pointer;" height="423px" color="#3c78fa">
-                <div><v-card-text class="numbers"
+              <v-card class="rounded-card pa-6" style="cursor:pointer;" height="423px" color="#ffffff">
+                <div><v-card-text class="numbers-dataset"
                   v-text="card.text"
                 ></v-card-text></div>
-                <div><v-card-text class="flujos"
+                <div><v-card-text class="flujos-dataset"
                   v-text="card.title"
                 ></v-card-text></div>
                 
                 <div><v-card-text class="mt-6 mini-dataset"
                   >Dataset</v-card-text></div>
-                <div class="dash ml-4 mt-2"></div>
-                <div><v-card-text class="mt-5 desc-dataset"
+                <div><v-card-text class="mt-2 desc-dataset"
                       >It is a long established fact that a reader will be distracted
                       by the readable content of a page when å at its layout.
                       The point of using Lorem Ipsum is that it has a more
@@ -43,9 +42,9 @@ export default {
   data: () => ({
     //
     cards: [
+      { title: 'Indicadores de Politica', text: '03', flex: 3 },
       { title: 'Flujos', text: '01', flex: 3 },
       { title: 'Visas', text: '02', flex: 3 },
-      { title: 'Indicadores de Politica', text: '03', flex: 3 },
       { title: 'Acuerdos Internacionales', text: '04', flex: 3 }
     ],
   }),

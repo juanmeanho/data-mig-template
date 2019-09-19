@@ -1,17 +1,28 @@
 <template>
     <v-layout row>
         <template>
-          <v-flex md2>
-            <v-card class="rounded-card pl-12 pt-10"  color="rgba(150,150,150,0.2)" height="154" width="225">
-                <v-img max-height="31" max-width="140" class="mt-6" src="../assets/group-2-copy.svg" >
-                </v-img>
-            </v-card>    
-          </v-flex>
-        </template>
-        <template>
-          <v-flex md10>
-            <div>
-              <v-toolbar class="mt-12" color="transparent" flat dark>
+          <v-flex>
+            <div >
+              <!-- Hover toolbar effect <v-app-bar 
+                fixed  
+                class="mb-12" 
+                color="transparent" 
+                elevate-on-scroll="true" 
+                dark 
+                height="154" 
+                width="100%"
+                > -->
+              <v-app-bar 
+                color="transparent" 
+                flat
+                dark 
+                height="154" 
+                width="100%"
+                >
+                <v-card class="rounded-card pl-12 pt-10"  color="rgba(150,150,150,0.2)" height="154" width="225">
+                  <v-img max-height="57" max-width="130" class="mt-2" src="@/assets/logo-dmw-1.png" >
+                  </v-img>
+                </v-card> 
                   <v-btn class="hidden-sm-and-down custom-transform-class text-none " text>Iniciativa de Migraciones</v-btn>
                   <div class="hidden-sm-and-down flex-grow-1"></div>
                     <v-btn class="hidden-sm-and-down custom-transform-class text-none grey--text text--lighten-1" text>El Proyecto</v-btn>
@@ -41,7 +52,7 @@
                     </v-menu>
                   </div>
                 </v-layout>       
-              </v-toolbar>
+              </v-app-bar>
             </div>
           </v-flex>
         </template>

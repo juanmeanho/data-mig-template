@@ -4,15 +4,15 @@
             <v-flex xs10>
                 <v-card class="mx-auto pa-2 hidden-md-and-up" max-width="1059" color="transparent" flat dark>
                     <v-container class="pa-2" fluid >
-                        <v-card v-for="(items, i) in cards" :key="i" class="rounded-card mb-2" style="cursor:pointer;" height="123px" color="#3c78fa">
+                        <v-card v-for="(items, i) in cards" :key="i" class="rounded-card mb-2" style="cursor:pointer;" height="123px" color="#ffffff">
                             <v-layout>
                                 <v-flex sm4>
                                     <div>
-                                        <v-card-text class="numbers">{{ items.text }}
+                                        <v-card-text class="numbers-dataset">{{ items.text }}
                                         </v-card-text>
                                     </div>
                                     <div>
-                                        <v-card-text class="flujos">{{ items.title }}
+                                        <v-card-text class="flujos-dataset">{{ items.title }}
                                         </v-card-text>
                                     </div>
                                 </v-flex>
@@ -74,9 +74,9 @@ export default {
   data: () => ({
     //
     cards: [
+      { title: 'Indicadores de Politica', text: '03', flex: 3 },
       { title: 'Flujos', text: '01', flex: 3 },
       { title: 'Visas', text: '02', flex: 3 },
-      { title: 'Indicadores de Politica', text: '03', flex: 3 },
       { title: 'Acuerdos Internacionales', text: '04', flex: 3 }
     ],
   }),
