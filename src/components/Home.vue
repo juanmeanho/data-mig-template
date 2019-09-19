@@ -7,20 +7,19 @@
       <!-- Title Hero-->
       <title-hero-mobile></title-hero-mobile>
       <title-hero-desktop></title-hero-desktop>
-  
+
       <!-- Hero cards -->
       <hero-cards-mobile></hero-cards-mobile>
       <hero-cards-desktop></hero-cards-desktop>
 
-      <!-- /Hero cards --> 
+      <!-- /Hero cards -->
     </v-img>
-      <!-- Acerca de --> 
-      <acerca-mobile></acerca-mobile>
-      <acerca-desktop></acerca-desktop>
+    <!-- Acerca de -->
+    <acerca-mobile></acerca-mobile>
+    <acerca-desktop></acerca-desktop>
 
-      <!-- Datasets -->
-      <v-img class="white--text mt-12" height="860px" src="../assets/bg.png">
-
+    <!-- Datasets -->
+    <v-img class="white--text mt-12" height="860px" src="../assets/bg.png">
       <!-- Datasets title-->
       <title-datasets-desktop></title-datasets-desktop>
       <title-datasets-mobile></title-datasets-mobile>
@@ -28,158 +27,162 @@
       <!-- datasets cards -->
       <datasets-cards-mobile></datasets-cards-mobile>
       <datasets-cards-desktop></datasets-cards-desktop>
-      
     </v-img>
-      <!-- /Datasets -->
+    <!-- /Datasets -->
 
-      <!-- Card Tabs --> 
-      <v-container class="pa-2 mx-auto mt-12" fluid >
-        <v-row>
-          <v-col>
-            <div class="display-1 proyecto mx-auto mb-4" style="width:100%;text-align:center;">
-              Referencias Externas
-            </div>
-            <div class="proyecto-descripcion-referencia mx-auto mt-n10" style="width:50%;text-align:center;">
-              It is a long established fact that a reader will be distracted
-              by the readable content of a page when looking at its layout.
-              The point of using Lorem Ipsum is that it has a more
-              It is a long established fact that a reader will be.
-            </div>
-            <!-- tabs -->
-              <div class="mt-12 mx-auto" style="width:80%;text-align:center;">
-                <v-tabs v-model="tab" class="elevation-6 pt-8" fixed-tabs>
-                  <v-tabs-slider color="#e56910"></v-tabs-slider>
-                  <v-tab active-class="black--text" 
-                    v-for="i in tabs"
-                    :key="i"
-                    :href="`#tab-${i}`"
-                  >
-                    Tab {{ i }}
-                  </v-tab>
-            
-                  <v-tab-item
-                    v-for="i in tabs"
-                    :key="i"
-                    :value="'tab-' + i"
-                  >
-                    <v-card flat tile >
-                      <template >
-                        <v-list v-for="(item, index) in items" :key="index">
-                          <v-divider></v-divider>
-                    
-                        <v-list-item >
-                          <v-list-item-content >
-                            <v-layout>
-                              <v-flex>
-                                <div class="mt-4" style="text-align:left">
-                                  <span class=".Argentina---Institut">{{ item.title }}</span>
-                                  <span class="Argentina---Institut text-style-1">{{ item.link }}</span>
-                                </div>
-                              </v-flex>
-                            </v-layout>
-                          </v-list-item-content>
-                        </v-list-item>
-                      </v-list>
-                      </template>
-                    </v-card>
-                  </v-tab-item>
-                </v-tabs>
-              </div>
-            <!-- /tabs -->
-          </v-col>
-        </v-row>
-      </v-container>
-      <!-- /Card tabs --> 
-      <!-- Card footer -->
-        <v-row class="mt-5">
-          <v-col>
-              <v-card color="#F2F2F2" class="mt-12 px-12 mb-n4 rounded-card" flat>
-                <v-layout row justify-center mx-0 mb-5 
-                :class="{'mx-12': $vuetify.breakpoint.smAndUp,
-                'mx-0': $vuetify.breakpoint.xsOnly}">
-                <!--<v-layout row justify-center mx-12 mb-5>-->
-                  <v-flex lg10>
-                    <v-img class="white--text mt-12 ml-12" width="101px" src="../assets/bid.png"></v-img>
-                  </v-flex>
+    <!-- Card Tabs -->
+    <v-container class="pa-2 mx-auto mt-12" fluid>
+      <v-row>
+        <v-col>
+          <div class="display-1 proyecto mx-auto mb-4" style="width:100%;text-align:center;">
+            <p v-text="$ml.get('references')" />
+          </div>
+          <div
+            class="proyecto-descripcion-referencia mx-auto mt-n10"
+            style="width:50%;text-align:center;"
+          >
+            <p v-text="$ml.get('references_desc')" />
+          </div>
+          <!-- tabs -->
+          <div class="mt-12 mx-auto" style="width:80%;text-align:center;">
+            <v-tabs v-model="tab" class="elevation-6 pt-8" fixed-tabs>
+              <v-tabs-slider color="#e56910"></v-tabs-slider>
+              <v-tab
+                active-class="black--text"
+                v-for="i in tabs"
+                :key="i"
+                :href="`#tab-${i}`"
+              >Tab {{ i }}</v-tab>
 
-                  <v-flex class="pl-12 md-6">
-                    <v-img class="white--text mt-12" width="101px" src="../assets/group-2-copy.png"></v-img>
-                  </v-flex>
-                </v-layout>
-                    <!--<div class="ml-12 pl-12" id="chip-usage-example">-->
-                    <div class="ml-0 pl-0" id="chip-usage-example"
+              <v-tab-item v-for="i in tabs" :key="i" :value="'tab-' + i">
+                <v-card flat tile>
+                  <template>
+                    <v-list v-for="(item, index) in items" :key="index">
+                      <v-divider></v-divider>
+
+                      <v-list-item>
+                        <v-list-item-content>
+                          <v-layout>
+                            <v-flex>
+                              <div class="mt-4" style="text-align:left">
+                                <span class=".Argentina---Institut">{{ item.title }}</span>
+                                <span class="Argentina---Institut text-style-1">{{ item.link }}</span>
+                              </div>
+                            </v-flex>
+                          </v-layout>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </v-list>
+                  </template>
+                </v-card>
+              </v-tab-item>
+            </v-tabs>
+          </div>
+          <!-- /tabs -->
+        </v-col>
+      </v-row>
+    </v-container>
+    <!-- /Card tabs -->
+    <!-- Card footer -->
+    <v-row class="mt-5">
+      <v-col>
+        <v-card color="#F2F2F2" class="mt-12 px-12 mb-n4 rounded-card" flat>
+          <v-layout
+            row
+            justify-center
+            mx-0
+            mb-5
+            :class="{'mx-12': $vuetify.breakpoint.smAndUp,
+                'mx-0': $vuetify.breakpoint.xsOnly}"
+          >
+            <!--<v-layout row justify-center mx-12 mb-5>-->
+            <v-flex lg10>
+              <v-img class="white--text mt-12 ml-12" width="101px" src="../assets/bid.png"></v-img>
+            </v-flex>
+
+            <v-flex class="pl-12 md-6">
+              <v-img class="white--text mt-12" width="101px" src="../assets/group-2-copy.png"></v-img>
+            </v-flex>
+          </v-layout>
+          <!--<div class="ml-12 pl-12" id="chip-usage-example">-->
+          <div
+            class="ml-0 pl-0"
+            id="chip-usage-example"
+            :class="{'ml-12': $vuetify.breakpoint.smAndUp,
+                            'ml-0': $vuetify.breakpoint.xsOnly ,'pl-12': $vuetify.breakpoint.smAndUp,
+                            'pl-0': $vuetify.breakpoint.xsOnly}"
+          >
+            <div v-for="item in sections" :key="item.id">
+              <v-chip class="ml-4 pt-1">
+                <span class="text-chips">{{ item.title_en }}</span>
+              </v-chip>
+            </div>
+          </div>
+          <v-layout>
+            <v-flex xs10>
+              <v-footer padless class="mb-12" color="#f2f2f2">
+                <v-flex xs6sm9>
+                  <v-row
+                    wrap
+                    no-gutters
+                    class="ml-0 pl-0"
                     :class="{'ml-12': $vuetify.breakpoint.smAndUp,
                             'ml-0': $vuetify.breakpoint.xsOnly ,'pl-12': $vuetify.breakpoint.smAndUp,
-                            'pl-0': $vuetify.breakpoint.xsOnly}">
-                      <v-chip class="ml-4 pt-1"><span class="text-chips">FLUJOS</span></v-chip>
-                      <v-chip w class="ml-4 pt-1"><span class="text-chips">VISAS</span></v-chip>
-                      <v-chip class="ml-4 pt-1"><span class="text-chips">INDICADORES DE POLíTICA</span></v-chip>
-                      <v-chip class="ml-4 pt-1"><span class="text-chips">ACUERDOS INTERNACIONALES</span></v-chip>
-                    </div>
-                <v-layout >
-                  <v-flex xs10>
-                  <v-footer padless class="mb-12" color="#f2f2f2">
-                    <v-flex xs6sm9>
-                      <v-row wrap no-gutters class="ml-0 pl-0" 
-                      :class="{'ml-12': $vuetify.breakpoint.smAndUp,
-                            'ml-0': $vuetify.breakpoint.xsOnly ,'pl-12': $vuetify.breakpoint.smAndUp,
-                            'pl-0': $vuetify.breakpoint.xsOnly}">
-                        <v-btn
-                          v-for="link in links"
-                          :key="link"
-                          color="#CCC"
-                          text
-                          rounded
-                          class="custom-transform-class text-none my-2 ml-2">
-                          {{ link }}
-                        </v-btn>
-                        <v-col
-                          class="py-4 text-left ml-4 address"
-                          cols="12"
-                        >
-                          1300 New York Avenue, NW Washington, DC 20577, USA ©2019 Banco Interamericano de Desarrollo, BID                        
-                        </v-col>
-                      </v-row>
-                      </v-flex>
-                    </v-footer>
-                  </v-flex>
-                  <v-flex sm3 ml-n6>
-                    <v-layout class="ml-0 mt-6"
-                    :class="{'ml-12': $vuetify.breakpoint.mdAndUp,
+                            'pl-0': $vuetify.breakpoint.xsOnly}"
+                  >
+                    <v-btn
+                      v-for="link in links"
+                      :key="link"
+                      color="#CCC"
+                      text
+                      rounded
+                      class="custom-transform-class text-none my-2 ml-2"
+                    >{{ link }}</v-btn>
+                    <v-col
+                      class="py-4 text-left ml-4 address"
+                      cols="12"
+                    >13008 New York Avenue, NW Washington, DC 20577, USA ©2019 Banco Interamericano de Desarrollo, BID</v-col>
+                  </v-row>
+                </v-flex>
+              </v-footer>
+            </v-flex>
+            <v-flex sm3 ml-n6>
+              <v-layout
+                class="ml-0 mt-6"
+                :class="{'ml-12': $vuetify.breakpoint.mdAndUp,
                               'pl-6': $vuetify.breakpoint.mdAndUp,
-                            'ml-n6': $vuetify.breakpoint.xsOnly}">
-                      <v-flex class="">
-                        <v-img src="../assets/group-8.png" width="48px" height="48px"></v-img>
-                      </v-flex>
-                      <v-flex class="mr-0 ml-0">
-                        <v-img src="../assets/group-7.png" class="ml-0 mr-0" width="48px" height="48px"></v-img>
-                      </v-flex>
-                    </v-layout>
-                  </v-flex>
-                </v-layout>
-              </v-card>
-          </v-col>
-        </v-row>
-      <!-- /Card Footer -->
+                            'ml-n6': $vuetify.breakpoint.xsOnly}"
+              >
+                <v-flex class>
+                  <v-img src="../assets/group-8.png" width="48px" height="48px"></v-img>
+                </v-flex>
+                <v-flex class="mr-0 ml-0">
+                  <v-img src="../assets/group-7.png" class="ml-0 mr-0" width="48px" height="48px"></v-img>
+                </v-flex>
+              </v-layout>
+            </v-flex>
+          </v-layout>
+        </v-card>
+      </v-col>
+    </v-row>
+    <!-- /Card Footer -->
   </v-card>
 </template>
 
 
 <script>
-
-import Toolbar from './Toolbar';
-import TitleHeroMobile from './TitleHeroMobile';
-import TitleHeroDesktop from './TitleHeroDesktop';
-import HeroCardsMobile from './HeroCardsMobile';
-import HeroCardsDesktop from './HeroCardsDesktop';
-import AcercaDesktop from './AcercaDesktop';
-import AcercaMobile from './AcercaMobile';
-import TitleDatasetsDesktop from './TitleDatasetsDesktop';
-import TitleDatasetsMobile from './TitleDatasetsMobile';
-import DatasetsCardsMobile from './DatasetsCardsMobile';
-import DatasetsCardsDesktop from './DatasetsCardsDesktop';
-
-
+import Toolbar from "./Toolbar";
+import TitleHeroMobile from "./TitleHeroMobile";
+import TitleHeroDesktop from "./TitleHeroDesktop";
+import HeroCardsMobile from "./HeroCardsMobile";
+import HeroCardsDesktop from "./HeroCardsDesktop";
+import AcercaDesktop from "./AcercaDesktop";
+import AcercaMobile from "./AcercaMobile";
+import TitleDatasetsDesktop from "./TitleDatasetsDesktop";
+import TitleDatasetsMobile from "./TitleDatasetsMobile";
+import DatasetsCardsMobile from "./DatasetsCardsMobile";
+import DatasetsCardsDesktop from "./DatasetsCardsDesktop";
+import axios from "axios";
 
 export default {
   components: {
@@ -194,59 +197,95 @@ export default {
     TitleDatasetsMobile,
     DatasetsCardsMobile,
     DatasetsCardsDesktop
-    
   },
   data: () => ({
+    sections: null,
     show: false,
 
-     datasets: [
-      { title: 'Pre-fab homes', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 3 },
-      { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 3 },
-      { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 3 },
-      { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 3 }
+    datasets: [
+      {
+        title: "Pre-fab homes",
+        src: "https://cdn.vuetifyjs.com/images/cards/house.jpg",
+        flex: 3
+      },
+      {
+        title: "Favorite road trips",
+        src: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
+        flex: 3
+      },
+      {
+        title: "Best airlines",
+        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
+        flex: 3
+      },
+      {
+        title: "Best airlines",
+        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
+        flex: 3
+      }
     ],
 
-        tab: null,
-      text: 'labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    tab: null,
+    text:
+      "labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
 
-      tabs: 4,
-      items: [
-      { title: 'Argentina - ', link: 'Instituto Nacional de Estadísticas y Censos (INDEC)' },
-      { title: 'Bahamas - ', link: 'Dept. of Statistics' },
-      { title: 'Barbados - ', link: 'Barbados Statistical Service, Ministry of Finance' },
-      { title: 'Belice - ', link: 'Statistical Institute of Belize' },
-      { title: 'Brasil - ', link: 'Ministério do Desenvolvimento, Indústria e Comércio Exterior de Brasil' },
-      { title: 'Bolivia - ', link: 'Instituto Nacional de Estadística' },
-      { title: 'Chile - ', link: 'Servicio Nacional de Aduanas' },
-      { title: 'Colombia - ', link: 'Departamento Administrativo Nacional de Estadísticas (DANE)' },
-      { title: 'Costa Rica - ', link: 'Instituto Nacional de Estadística' },
-      
+    tabs: 4,
+    items: [
+      {
+        title: "Argentina - ",
+        link: "Instituto Nacional de Estadísticas y Censos (INDEC)"
+      },
+      { title: "Bahamas - ", link: "Dept. of Statistics" },
+      {
+        title: "Barbados - ",
+        link: "Barbados Statistical Service, Ministry of Finance"
+      },
+      { title: "Belice - ", link: "Statistical Institute of Belize" },
+      {
+        title: "Brasil - ",
+        link:
+          "Ministério do Desenvolvimento, Indústria e Comércio Exterior de Brasil"
+      },
+      { title: "Bolivia - ", link: "Instituto Nacional de Estadística" },
+      { title: "Chile - ", link: "Servicio Nacional de Aduanas" },
+      {
+        title: "Colombia - ",
+        link: "Departamento Administrativo Nacional de Estadísticas (DANE)"
+      },
+      { title: "Costa Rica - ", link: "Instituto Nacional de Estadística" }
     ],
-    links: [
-      'DATAMIG',
-      'El Proyecto',
-      'Datasets',
-      'Referencias Externas',
-    ],
+    links: ["DATAMIG", "El Proyecto", "Datasets", "Referencias Externas"]
   }),
+  methods: {
+    async getSection() {
+      let sections = await axios.get(
+        "http://backend.datamig.org/en/api/section"
+      );
+
+      this.sections = await sections.data;
+    }
+  },
+  created() {
+    this.getSection();
+  }
 };
 </script>
 
 
 <style>
-.size-image{
-  width:"715px";
-  height:"585px";
+.size-image {
+  width: "715px";
+  height: "585px";
 }
 
-.size-image-md{
-  width:"300px";
-  height:"300px";
+.size-image-md {
+  width: "300px";
+  height: "300px";
 }
 
-.size-image-xs{
-  width:"100px";
-  height:"100px";
+.size-image-xs {
+  width: "100px";
+  height: "100px";
 }
 
 .address {
@@ -263,7 +302,7 @@ export default {
 }
 
 .text-chips {
-  font-family: 'Hind Guntur', sans-serif;  
+  font-family: "Hind Guntur", sans-serif;
   font-size: 14px;
   font-weight: 600;
   font-style: normal;
@@ -271,7 +310,7 @@ export default {
   line-height: 1.64;
   letter-spacing: normal;
   color: #0c1147;
-} 
+}
 #chip-usage-example .v-chip {
   margin: 8px;
 }
@@ -279,7 +318,7 @@ export default {
 .Argentina---Institut {
   width: 539px;
   height: 37px;
-  font-family: 'Hind Guntur', sans-serif;  
+  font-family: "Hind Guntur", sans-serif;
   font-size: 18px;
   font-weight: 600;
   font-style: normal;
@@ -297,8 +336,8 @@ export default {
   border-top: 0.5px solid;
   width: 160px;
 }
-.download-link{
-  font-family: 'Hind Guntur', sans-serif;  
+.download-link {
+  font-family: "Hind Guntur", sans-serif;
   font-size: 12px;
   font-weight: normal;
   font-style: normal;
@@ -311,7 +350,7 @@ export default {
 .desc-dataset {
   width: 185px;
   height: 192px;
-  font-family: 'Hind Guntur', sans-serif;  
+  font-family: "Hind Guntur", sans-serif;
   font-size: 12px;
   font-weight: normal;
   font-style: normal;
@@ -324,7 +363,7 @@ export default {
 .mini-dataset {
   width: 107px;
   height: 33px;
-  font-family: 'Hind Guntur', sans-serif;  
+  font-family: "Hind Guntur", sans-serif;
   font-size: 12px;
   font-weight: normal;
   font-style: normal;
@@ -336,7 +375,7 @@ export default {
 
 .datasets-description {
   height: 100px;
-  font-family: 'Hind Guntur', sans-serif;  
+  font-family: "Hind Guntur", sans-serif;
   font-size: 14px;
   font-weight: 500;
   font-style: normal;
@@ -349,7 +388,7 @@ export default {
 .datasets {
   width: 230px;
   height: 105px;
-  font-family: 'Hind Guntur', sans-serif;  
+  font-family: "Hind Guntur", sans-serif;
   font-size: 56px;
   font-weight: 300;
   font-style: normal;
@@ -375,7 +414,7 @@ export default {
 
 .proyecto-descripcion {
   height: 325px;
-  font-family: 'Hind Guntur', sans-serif;  
+  font-family: "Hind Guntur", sans-serif;
   font-size: 16px;
   font-weight: 500;
   font-style: normal;
@@ -398,7 +437,7 @@ export default {
 .proyecto {
   width: 210px;
   height: 105px;
-  font-family: 'Hind Guntur', sans-serif;  
+  font-family: "Hind Guntur", sans-serif;
   font-size: 56px;
   font-weight: 300;
   font-style: normal;
@@ -412,7 +451,7 @@ export default {
   width: 108px;
   height: 36px;
   opacity: 0.45;
-  font-family: 'Hind Guntur', sans-serif;  
+  font-family: "Hind Guntur", sans-serif;
   font-size: 24px;
   font-weight: 500;
   font-style: normal;
@@ -424,7 +463,7 @@ export default {
 
 .flujos {
   height: 31px;
-  font-family: 'Hind Guntur', sans-serif;  
+  font-family: "Hind Guntur", sans-serif;
   font-size: 24px;
   font-weight: 500;
   font-style: normal;
@@ -434,10 +473,10 @@ export default {
   color: #ffffff;
 }
 
- .numbers{
+.numbers {
   height: 31px;
   opacity: 0.5;
-  font-family: 'Hind Guntur', sans-serif;  
+  font-family: "Hind Guntur", sans-serif;
   font-size: 14px;
   font-weight: 600;
   font-style: normal;
@@ -447,13 +486,13 @@ export default {
   color: #ffffff;
 }
 
-.rounded-card{
-    border-radius:0px;
+.rounded-card {
+  border-radius: 0px;
 }
 
 .data-mig {
   height: 1px;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 96px;
   font-weight: 900;
   font-style: normal;
@@ -465,7 +504,7 @@ export default {
 
 .data-mig-xs {
   height: 1px;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 76px;
   font-weight: 900;
   font-style: normal;
@@ -478,7 +517,7 @@ export default {
 .text-hero-right {
   width: 491px;
   height: 90px;
-  font-family: 'Hind Guntur', sans-serif;  
+  font-family: "Hind Guntur", sans-serif;
   font-size: 16px;
   font-weight: 500;
   font-style: normal;
@@ -491,7 +530,7 @@ export default {
 .text-hero-xs {
   width: 300px;
   height: 90px;
-  font-family: 'Hind Guntur', sans-serif;  
+  font-family: "Hind Guntur", sans-serif;
   font-size: 16px;
   font-weight: 500;
   font-style: normal;
@@ -511,12 +550,11 @@ export default {
 }
 
 .borders-right {
-  border-right:  0.1px solid #ccc;
+  border-right: 0.1px solid #ccc;
 }
 
-.hero-footer:hover{
+.hero-footer:hover {
   cursor: pointer;
   background-color: #e56910;
 }
-
 </style>
