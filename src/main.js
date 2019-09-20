@@ -5,6 +5,7 @@ import "vue-material-design-icons/styles.css";
 import MenuIcon from "vue-material-design-icons/Menu.vue";
 import MinusIcon from "vue-material-design-icons/Minus.vue";
 import ArrowDown from "vue-material-design-icons/ArrowDown.vue";
+import ChevronDown from "vue-material-design-icons/ChevronDown.vue";
 import "./ml";
 import axios from "axios";
 import VueAxios from "vue-axios";
@@ -17,6 +18,7 @@ Vue.use(VueAxios, axios);
 Vue.component("menu-icon", MenuIcon);
 Vue.component("minus-icon", MinusIcon);
 Vue.component("arrow-down", ArrowDown);
+Vue.component("chevron-down", ChevronDown);
 
 Vue.config.productionTip = false;
 

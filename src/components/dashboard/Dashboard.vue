@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-navigation-drawer v-model="drawer" app clipped>
-      <v-card class="mx-auto" color="#ffffff" flat max-width="250">
-        <v-card-title class="indicators mb-8">Indicators</v-card-title>
+      <v-card class="mx-auto mb-2" color="#ffffff" flat max-width="250">
+        <v-card-title class="indicators mb-10">Indicators</v-card-title>
         <v-list-item v-for="(item, i) in references" :key="i" :label="item">
           <v-list-item-icon class="mt-n2">
             <v-icon :color="references_color[i]">mdi-brightness-1</v-icon>
@@ -11,13 +11,13 @@
         </v-list-item>
       </v-card>
 
-      <v-card class="mx-auto" color="#ffffff" flat max-width="250">
-        <v-card-title class="indicators mt-n6">Description</v-card-title>
-        <v-card-title class="card-title mt-1">{{title}}</v-card-title>
-        <v-card-text class="card-content mt-3">{{description}}</v-card-text>
+      <v-card class="mx-auto mt-0" color="#ffffff" flat max-width="250">
+        <div class="indicators ml-4">Description</div>
+        <div class="card-title mt-1 ml-4" style="height:auto">{{title}}</div>
+        <div class="card-content mt-3 ml-4" style="height:auto">{{description}}</div>
       </v-card>
-
-      <div style="width:230px;">
+      <v-footer color="transparent" class="justify-center ml-n12 pl-n12" inset app>
+      <div v-if="references">
         <!-- <v-slider
           v-model="ex3.val"
           :thumb-color="ex3.color"
@@ -28,10 +28,11 @@
         <div class="text-center">
           <v-btn class="ml-1" width="215px" tile color="#f05a23" dark>Reset</v-btn>
         </div>-->
-        <div class="mt-12 ml-4">
-          <v-img src="@/assets/bid.png" width="85px" height="auto"></v-img>
+        <div class="mt-12 mr-12 pr-12">
+          <v-img src="@/assets/bid.png" class="mr-12 ml-n12" width="85px" height="auto"></v-img>
         </div>
       </div>
+    </v-footer>
     </v-navigation-drawer>
 
     <v-app-bar app clipped-left height="104px">
@@ -52,8 +53,8 @@
         ></div>
       </div>
       <!--<v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>-->
-      <div class="visa-de-turista">
-        <select @change="onChange($event)">
+      <div class="visa-de-turista ml-n6">
+        <select @change="onChange($event)" style="width:100%">
           <optgroup
             v-for="indicator in indicators"
             v-bind:label="indicator.key"
@@ -69,17 +70,22 @@
           </optgroup>
         </select>
       </div>
+      <v-btn icon>
+          <v-icon color="#147dc5">mdi-chevron-down</v-icon>
+      </v-btn>
 
-      <div class="flex-grow-1"></div>
-
-      <div class="end-bar hidden-sm-and-down">
-        <v-btn style="color:#3b4cc3" text>
-          <button v-for="lang in $ml.list" :key="lang" @click="$ml.change(lang)" v-text="lang" />
-        </v-btn>
-        <v-btn icon>
-          <v-app-bar-nav-icon style="color:#3b4cc3"></v-app-bar-nav-icon>
-        </v-btn>
-      </div>
+      <v-layout class="end-bar hidden-sm-and-down pl-n8">
+        <v-flex >
+          <v-btn style="color:#3b4cc3" class="pt-3" text >
+            <button v-for="lang in $ml.list" :key="lang" @click="$ml.change(lang)" v-text="lang" />
+          </v-btn>
+        </v-flex>
+        <v-flex>
+          <v-btn icon class="pt-0">
+            <v-app-bar-nav-icon style="color:#3b4cc3"></v-app-bar-nav-icon>
+          </v-btn>
+        </v-flex>
+      </v-layout>
     </v-app-bar>
 
     <v-content>
@@ -15841,6 +15847,7 @@ export default {
 </script>
     
 <style>
+
 .logo {
   background-color: rgba(150, 150, 150, 0.07);
   height: inherit;
@@ -15852,7 +15859,7 @@ export default {
   background-color: rgba(150, 150, 150, 0.07);
   height: inherit;
   padding: 25px;
-  width: 193px;
+  max-width: 193px;
 }
 
 .item-bar {
@@ -15863,6 +15870,7 @@ export default {
 }
 
 .visa-de-turista {
+  width: 55%;
   font-family: "Hind Guntur", sans-serif;
   font-size: 24px;
   font-weight: 300;

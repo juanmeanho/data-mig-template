@@ -95,7 +95,7 @@
             <div class="hidden-sm-and-down flex-grow-1"></div>
             <div class="hidden-sm-and-down flex-grow-1"></div>
 
-            <v-btn class="hidden-sm-and-down mt-2" text>
+            <v-btn class="hidden-sm-and-down mt-0 items-toolbar" text>
               <button v-for="lang in $ml.list" :key="lang" @click="$ml.change(lang)" v-text="lang" />
             </v-btn>
             <div class="hidden-sm-and-down flex-grow-1"></div>
@@ -150,8 +150,8 @@
                       >
                         <div class="hover-tb pt-4 pl-2" style="height:100%;">
                           <div class="hover-tb">
-                            <v-card-text class="numbers-tb" v-text="card.text"></v-card-text>
-                            <v-card-text class="flujos-tb" v-text="card.title"></v-card-text>
+                            <v-card-text class="numbers-tb" v-text="card.number"></v-card-text>
+                            <v-card-text class="flujos-tb" v-text="$ml.get(card.title)"></v-card-text>
                           </div>
                         </div>
                       </v-card>
@@ -204,7 +204,31 @@ export default {
       { icon: "info", title: "El Proyecto" },
       { icon: "warning", title: "Datasets" },
       { icon: "warning", title: "Referencias Externas" }
-    ]
+    ],
+        cards: [
+      {
+        title: "flow",
+        text: "flow_data",
+        flex: 3,
+        number: "01",
+        class: "flujos_hover"
+      },
+      { title: "visa", text: "", flex: 3, number: "02", class: "visas_hover" },
+      {
+        title: "policy",
+        text: "policiy_data",
+        flex: 3,
+        number: "03",
+        class: "indicadores_hover"
+      },
+      {
+        title: "agreement",
+        text: "",
+        flex: 3,
+        number: "04",
+        class: "acuerdos_hover"
+      }
+    ],
   })
 };
 </script>
