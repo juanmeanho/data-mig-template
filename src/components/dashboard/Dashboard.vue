@@ -1,9 +1,8 @@
 <template>
   <div>
     <v-navigation-drawer v-model="drawer" app clipped>
-      <v-card-title class="card-title mt-1">{{title}}</v-card-title>
       <v-card class="mx-auto" color="#ffffff" flat max-width="250">
-        <v-card-title class="indicators mb-8" v-if="references">References</v-card-title>
+        <v-card-title class="indicators mb-8">Indicators</v-card-title>
         <v-list-item v-for="(item, i) in references" :key="i" :label="item">
           <v-list-item-icon class="mt-n2">
             <v-icon :color="references_color[i]">mdi-brightness-1</v-icon>
@@ -13,8 +12,8 @@
       </v-card>
 
       <v-card class="mx-auto" color="#ffffff" flat max-width="250">
-        <v-card-title class="indicators mt-n6" v-if="description">Description</v-card-title>
-
+        <v-card-title class="indicators mt-n6">Description</v-card-title>
+        <v-card-title class="card-title mt-1">{{title}}</v-card-title>
         <v-card-text class="card-content mt-3">{{description}}</v-card-text>
       </v-card>
 
@@ -42,10 +41,14 @@
       <div
         class="item-bar"
         :class="{'mr-6': $vuetify.breakpoint.smAndDown,'mr-12': $vuetify.breakpoint.mdAndUp}"
-      >        
+      >
+        <!-- <div
+          class="numbers"
+          :class="{'mt-n4': $vuetify.breakpoint.xsOnly,'mt-n3': $vuetify.breakpoint.smAndUp}"
+        >{{ nu_id }}</div> -->
         <div
           class="flujos"
-          :class="{'mt-n2': $vuetify.breakpoint.xsOnly, 'mt-1': $vuetify.breakpoint.smAndUp}" v-text="$ml.get('policy')"
+          :class="{'mt-n2': $vuetify.breakpoint.xsOnly, 'mt-n1': $vuetify.breakpoint.smAndUp}" v-text="$ml.get('policy')"
         ></div>
       </div>
       <!--<v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>-->
@@ -70,7 +73,9 @@
       <div class="flex-grow-1"></div>
 
       <div class="end-bar hidden-sm-and-down">
-        <v-btn style="color:#3b4cc3" text>ES-EN</v-btn>
+        <v-btn style="color:#3b4cc3" text>
+          <button v-for="lang in $ml.list" :key="lang" @click="$ml.change(lang)" v-text="lang" />
+        </v-btn>
         <v-btn icon>
           <v-app-bar-nav-icon style="color:#3b4cc3"></v-app-bar-nav-icon>
         </v-btn>
@@ -85,31 +90,31 @@
             <div id="mapa"></div>
           </v-flex>
         </v-layout>
-        <!-- /Mapa -->        
+        <!-- /Mapa -->
       </v-container>
-    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">      
-      <v-card>
-        <v-toolbar dark color="primary">
-          <v-btn icon dark @click="dialog = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-          <v-toolbar-title>{{modalTitle}}</v-toolbar-title>
-          <div class="flex-grow-1"></div>          
-        </v-toolbar>
-        <v-list three-line subheader>          
-          <v-list-item>
-            <v-list-item-content>              
-              <v-list-item-subtitle v-html="modalBody"></v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>         
-        </v-list>
-        <v-divider></v-divider>        
-      </v-card>
-    </v-dialog>
+      <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+        <v-card>
+          <v-toolbar dark color="primary">
+            <v-btn icon dark @click="dialog = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+            <v-toolbar-title>{{modalTitle}}</v-toolbar-title>
+            <div class="flex-grow-1"></div>
+          </v-toolbar>
+          <v-list three-line subheader>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-subtitle v-html="modalBody"></v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+          <v-divider></v-divider>
+        </v-card>
+      </v-dialog>
     </v-content>
   </div>
-  
 </template>
+
 <script>
 const countries = [
   {
@@ -2383,10 +2388,8 @@ const countries = [
     Continente: 5
   }
 ];
-
 const world_countries = {
   type: "FeatureCollection",
-
   features: [
     {
       type: "Feature",
@@ -15058,7 +15061,6 @@ const world_countries = {
 import axios from "axios";
 import * as d3 from "d3";
 import * as $ from "jquery";
-
 export default {
   components: {
     //Toolbar
@@ -15148,7 +15150,6 @@ export default {
           return d.section_name.trim();
         })
         .entries(data.data);
-
       this.datum = data.data;
       grouped_by_indicator.forEach(d => {
         d.subjects = d3
@@ -15158,15 +15159,12 @@ export default {
           })
           .entries(d.values);
       });
-
       var world_countries_filtered = world_countries.features.forEach(d => {
         countries.forEach(x => {
           if (x.ISO3166A3 == d.id) d.Continent = x.Continente;
         });
       });
-
       d3.select("#mapa svg").remove();
-
       this.margin = {
         top: 0,
         right: 0,
@@ -15175,9 +15173,7 @@ export default {
       };
       this.width = 1000 - this.margin.left - this.margin.right;
       this.height = 1000 - this.margin.top - this.margin.bottom;
-
       this.path = d3.geoPath().projection(this.projection);
-
       var g_policies = d3
         .select("#mapa")
         .append("svg")
@@ -15192,9 +15188,7 @@ export default {
         .on("wheel", function() {
           d3.event.preventDefault();
         });
-
       this.map_policies = g_policies.append("g").attr("class", "map");
-
       /* A cada pais de los indicadores se le asigna latitud y longitud */
       data.data.forEach(e => {
         let country = countries.filter(function(d) {
@@ -15208,16 +15202,13 @@ export default {
           e.iso3 = country.ISO3166A3;
         }
       });
-
       /* Se definen los layers */
       this.layer_policies = this.map_policies
         .append("g")
         .classed("layer_policies", true);
-
       var america = world_countries.features.filter(function(d) {
         return d.Continent == 1 && d.id != "USA" && d.id != "CAN";
       });
-
       this.layer_policies
         .append("g")
         .attr("class", "countries")
@@ -15237,7 +15228,6 @@ export default {
             }),
           exit => exit.remove()
         );
-
       d3.select(".policies").on("click", function() {
         $(".policies-selector").css("display", "block");
         $(".flows-selector").css("display", "none");
@@ -15245,10 +15235,8 @@ export default {
         d3.select(".map-policies").style("display", "block");
         this.clicked(2.6, 3, 2);
       });
-
       this.drawGeneralMarkers(data.data);
       this.clicked(2.6, 3, 2);
-
       this.datum = data.data;
       this.indicators = await grouped_by_indicator;
     },
@@ -15293,21 +15281,18 @@ export default {
       var ref = this;
       this.layer_policies.selectAll("circle").remove();
       d3.selectAll(".legendLinear").remove();
-
       var migi_countries = d3
         .nest()
         .key(function(d) {
           return d.iso3.trim();
         })
         .entries(migi_data);
-
       d3.selectAll("path").style("fill", "lightgrey");
       migi_data.forEach(function(d, i) {
         d3.select("." + d.iso3)
           .style("fill", d => ref.colorScale(i))
           .style("stroke", "white");
       });
-
       /* Generate Markers */
       var circles = this.layer_policies
         .selectAll("circle")
@@ -15334,9 +15319,9 @@ export default {
                   ])[1]
               )
               .attr("r", 7)
-              .style("fill", function(d, i) {
+              /*.style("fill", function(d, i) {
                 //return this.colorScale(i);
-              })
+              })*/
               .attr("data-toggle", "modal")
               .attr("data-target", "#myModal"),
           update =>
@@ -15367,7 +15352,6 @@ export default {
               .attr("data-target", "#myModal"),
           exit => exit.remove()
         );
-
       circles
         .on("mouseover", function(d) {
           let title = d.values[0].DescripcionING.toUpperCase();
@@ -15380,7 +15364,6 @@ export default {
         .on("click", function(d) {
           ref.markerOnClick(d.values);
         });
-
       circles
         .transition()
         .duration(750)
@@ -15389,36 +15372,28 @@ export default {
     },
     infoTooltip(tooltips) {
       var id = "linkTooltip" + Math.random();
-
       var tooltip = d3
         .select("body")
         .append("div")
         .attr("id", id)
         .attr("class", "tooltip");
-
       var header = tooltip.append("div").classed("modal-header", true);
-
       tooltip.id = id;
-
       if (tooltips.class != undefined && tooltips.class !== null) {
         tooltip.classed(tooltips.class, true);
       }
-
       var title = "";
       var text = "";
       if (tooltips.title != undefined && tooltips.title !== null) {
         title = "<h4>" + tooltips.title + "</h4>";
       }
-
       if (tooltips.subtitle != undefined && tooltips.subtitle !== null) {
         text = text + "<h2>" + tooltips.subtitle + "</h2>";
       }
-
       var show = function() {
         tooltip.style("opacity", "1");
         return tooltip;
       };
-
       var keys = d3.keys(tooltips).filter(function(d) {
         return (
           d !== "class" &&
@@ -15428,7 +15403,6 @@ export default {
           d !== "subtitle"
         );
       });
-
       keys.forEach(function(d) {
         text =
           text +
@@ -15438,9 +15412,7 @@ export default {
           tooltips[d] +
           "</div>";
       });
-
       tooltip.html(title + text);
-
       tooltip.move = function() {
         var width = document.getElementById(id).clientWidth;
         var height = document.getElementById(id).clientHeight;
@@ -15457,18 +15429,14 @@ export default {
           .style("top", y + "px")
           .style("opacity", "1");
       };
-
       tooltip.move();
-
       return tooltip;
     },
     async drawMarkers(migi_data, subject_id, subject_name) {            
       var ref = this;
       var linear;
       var labels = [];
-
       this.layer_policies.selectAll("circle").remove();
-
       var migi_data_filtered = migi_data.filter(function(d) {
         return (
           d.subject_id == subject_id &&
@@ -15476,7 +15444,6 @@ export default {
           d.description != undefined
         );
       });
-
       var url =
         "//migi.datamig.org/category/list?id_subject=" + subject_id;
       var categories = await axios.get(url);
@@ -15504,7 +15471,6 @@ export default {
             .keys();
         }
       }
-
       d3.selectAll("path").style("fill", "lightgrey");
       migi_data_filtered.forEach(function(d) {
         d3.select("." + d.iso3)
@@ -15515,14 +15481,12 @@ export default {
                 .domain(labels.sort())
                 .range(["#ed1a3b", "#72bf44"]);
             }
-
             if (d.type == "Dropdown") {
               linear = d3
                 .scaleOrdinal("schemeCategory20b")
                 .domain(labels)
                 .range(ref.colors);
             }
-
             if (
               subject_name.toUpperCase().search("YEAR") > -1 &&
               d.type == "Numeric"
@@ -15532,20 +15496,17 @@ export default {
                 .domain(labels)
                 .range(["#FFEBEE", "#E57373", "#B71C1C"]);
             }
-
             if (
               subject_name.toUpperCase().search("YEAR") == -1 &&
               d.type == "Numeric"
             ) {
               var minValue = d3.min(labels.map(Number));
               var maxValue = d3.max(labels.map(Number));
-
               linear = d3
                 .scaleQuantile()
                 .domain(labels.map(Number))
                 .range(["#FFEBEE", "#E57373", "#B71C1C"]);
             }
-
             return linear(d.description);
           })
           .style("stroke", "white");
@@ -15561,21 +15522,19 @@ export default {
               .classed("country-circle", true)
               .attr("r", 7)
               //.attr("height", 5)
-              .style("fill", function(d) {
+              /*.style("fill", function(d) {
                 if (d.type == "Boolean") {
                   linear = d3
                     .scaleOrdinal()
                     .domain(labels.sort())
                     .range(["#ed1a3b", "#72bf44"]);
                 }
-
                 if (d.type == "Dropdown") {
                   linear = d3
                     .scaleOrdinal("schemeCategory20b")
                     .domain(labels)
                     .range(ref.colors);
                 }
-
                 if (
                   subject_name.toUpperCase().search("YEAR") > -1 &&
                   d.type == "Numeric"
@@ -15585,22 +15544,19 @@ export default {
                     .domain(labels)
                     .range(["#FFEBEE", "#E57373", "#B71C1C"]);
                 }
-
                 if (
                   subject_name.toUpperCase().search("YEAR") == -1 &&
                   d.type == "Numeric"
                 ) {
                   var minValue = d3.min(labels.map(Number));
                   var maxValue = d3.max(labels.map(Number));
-
                   linear = d3
                     .scaleQuantile()
                     .domain(labels.map(Number))
                     .range(["#FFEBEE", "#E57373", "#B71C1C"]);
                 }
-
                 return linear(d.description);
-              })
+              })*/
               .attr("cx", d => this.projection([d.longitude, d.latitude])[0])
               .attr("cy", d => this.projection([d.longitude, d.latitude])[1]),
           update =>
@@ -15615,14 +15571,12 @@ export default {
                     .domain(labels.sort())
                     .range(["#ed1a3b", "#72bf44"]);
                 }
-
                 if (d.type == "Dropdown") {
                   linear = d3
                     .scaleOrdinal("schemeCategory20b")
                     .domain(labels)
                     .range(this.colors);
                 }
-
                 if (
                   subject_name.toUpperCase().search("YEAR") > -1 &&
                   d.type == "Numeric"
@@ -15632,7 +15586,6 @@ export default {
                     .domain(labels)
                     .range(["#FFEBEE", "#E57373", "#B71C1C"]);
                 }
-
                 if (
                   subject_name.toUpperCase().search("YEAR") == -1 &&
                   d.type == "Numeric"
@@ -15642,21 +15595,18 @@ export default {
                     .domain(labels.map(Number))
                     .range(["#FFEBEE", "#E57373", "#B71C1C"]);
                 }
-
                 return linear(d.description);
               })
               .attr("cx", d => this.projection([d.longitude, d.latitude])[0])
               .attr("cy", d => this.projection([d.longitude, d.latitude])[1]),
           exit => exit.remove()
         );
-
       circles
         .on("mouseover", function(d) {
           let desc = d.description;
           if (desc == "" || desc == null) {
             desc = "ND";
           }
-
           let title = d.DescripcionING.toUpperCase();
           let description = desc;
           let links = [];
@@ -15676,17 +15626,14 @@ export default {
         .on("click", function(d) {
           ref.markerOnClick(d);
         });
-
       circles
         .transition()
         .duration(750)
         .attr("r", 7);
       //.attr("height", 15);
-
       this.drawLegend(linear, subject_name);
     },
-    tooltipMarker(title, description, links, observations, year) {
-      console.log("aca");
+    tooltipMarker(title, description, links, observations, year) {      
       this.dataTooltip["title"] = title;
       if (description != null && description != "") {
         this.dataTooltip[""] = description;
@@ -15700,12 +15647,10 @@ export default {
       if (observations != null && observations != "") {
         this.dataTooltip["Observaciones"] = observations;
       }
-
       return this.dataTooltip;
     },
     zoomed() {
       this.layer_policies.attr("transform", d3.event.transform);
-
       this.layer_policies
         .selectAll("circle")
         .attr("r", 7 / d3.event.transform.k)
@@ -15715,7 +15660,6 @@ export default {
     drawLegend(linear, title) {
       d3.select(".viz-title").text(title);
       d3.selectAll(".legendLinear").remove();
-
       this.layer_policies
         .append("g")
         .attr("class", "legendLinear")
@@ -15723,12 +15667,11 @@ export default {
           "transform",
           "translate(" + this.width / 14 + "," + this.height / 2 + ")"
         );
-
       console.log("referencias");
       this.references = linear.domain();
       this.references_color = linear.range();
-      console.log();
-      var legendLinear = d3
+      
+      /*var legendLinear = d3
         .legendColor()
         //.shapeWidth(10)
         .orient("vertical")
@@ -15737,8 +15680,7 @@ export default {
         .title(title)
         .titleWidth(150)
         .labelFormat(d3.format(".0f"));
-
-      this.layer_policies.select(".legendLinear").call(legendLinear);
+      this.layer_policies.select(".legendLinear").call(legendLinear);*/
     },
     mapOnClick(map, layer_policies) {
       if ($("select").val() == 99) {
@@ -15753,7 +15695,6 @@ export default {
       var y = this.height / z;
       var k = k;
       var centered = null;
-
       this.map_policies.selectAll("path").classed(
         "active",
         centered &&
@@ -15761,7 +15702,6 @@ export default {
             return d === centered;
           }
       );
-
       this.map_policies
         .transition()
         .duration(750)
@@ -15791,7 +15731,6 @@ export default {
             return d.section_name;
           })
           .entries(childs);
-
         section_childs.forEach(j => {
           indicator += "<h4><b>" + j.key + "</b></h4><br>";
           j.values.forEach(d => {
@@ -15800,16 +15739,13 @@ export default {
                 '<div class="row"><div class="col-md-3"><b>' +
                 d.subject_name +
                 "</b></div>";
-
               indicator +=
                 '<div class="col-md-3">' + d.description + "</div>";
-
               if (d.links != null) {
                 let labels = [];
                 if (d.labels != null) {
                   labels = d.labels.split(",");
                 }
-
                 indicator += '<div class="col-md-3">';
                 d.links.split(",").forEach(function(d, i) {
                   indicator +=
@@ -15823,10 +15759,8 @@ export default {
                         "</a><br><br>"
                       : "";
                 });
-
                 indicator += "</div>";
               }
-
               indicator +=
                 (d.external_observation != null && d.external_observation != ""
                   ? '<div class="col-md-12"><p class="observation-label" style="text-align:justify"><br> * ' +
@@ -15836,7 +15770,6 @@ export default {
             }
           });
         });
-
         if (
           childs[0].external_observation != null &&
           childs[0].external_observation != ""
@@ -15852,18 +15785,14 @@ export default {
             '<div class="row"><div class="col-md-3"><b>' +
             childs.subject_name +
             "</b></div>";
-
           indicator +=
             '<div class="col-md-3">' + childs.description + "</div><hr>";
-
           if (childs.links != null) {
             let labels = [];
             if (childs.labels != null) {
               labels = childs.labels.split(",");
             }
-
             indicator += '<div class="col-md-3">';
-
             childs.links.split(",").forEach(function(d, i) {
               indicator +=
                 d != null
@@ -15874,15 +15803,12 @@ export default {
                     "</a><br><br>"
                   : "";
             });
-
             indicator += "</div><hr>";
           }
-
           indicator +=
             '<div class="col-md-3">' +
             (childs.observations != null ? childs.observations : "") +
             "</div></div><hr>";
-
           if (
             childs.external_observation != null &&
             childs.external_observation != ""
@@ -15894,7 +15820,6 @@ export default {
           }
         }
       }
-
       //this.modalTitle = d3.selectAll("h4.modal-title");
       this.modalTitle = country_name;      
       this.modalBody  = indicator;
@@ -15915,23 +15840,23 @@ export default {
 };
 </script>
     
-<style scoped>
+<style>
 .logo {
-  background-color: rgba(150, 150, 150, 0.2);
+  background-color: rgba(150, 150, 150, 0.07);
   height: inherit;
   padding: 20px;
   width: 147px;
 }
 
 .end-bar {
-  background-color: rgba(150, 150, 150, 0.2);
+  background-color: rgba(150, 150, 150, 0.07);
   height: inherit;
   padding: 25px;
   width: 193px;
 }
 
 .item-bar {
-  background-color: #3369de;
+  background-color: #147dc5;
   height: inherit;
   padding: 20px;
   width: 229px;
@@ -15945,7 +15870,7 @@ export default {
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #3369de;
+  color: #147dc5;
 }
 
 .indicators {
@@ -15957,7 +15882,7 @@ export default {
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #3369de;
+  color: #147dc5;
 }
 
 .indicators-text {
@@ -15997,31 +15922,13 @@ export default {
   letter-spacing: -0.1px;
   color: #979797;
 }
-</style>
-<style>
-/*html {
-  height: 100%;
-}
-
-body {
-  height: calc(100% - 120px);
-  //background-color: #343a40 !important;
-  background-color: white !important;
-  padding: 0;
-  margin: 0;
-  overflow-x: hidden;
-  font-family: "Gotham-Light";
-}*/
-
 .modal-body a {
   color: #f05a23;
   text-decoration: underline;
 }
-
 .modal-body h4 {
   color: #3369de;
 }
-
 .country-circle {
   stroke-width: 1.5px;
   stroke: white;
@@ -16039,54 +15946,43 @@ body {
   width: 100%;
   align-content: center;
 }
-
 rect {
   stroke-width: 1.5px;
   stroke: black;
   vector-effect: non-scaling-stroke;
 }
-
 path {
   vector-effect: non-scaling-stroke;
 }
-
 .track-overlay {
   cursor: auto !important;
 }
-
 .form-control {
   width: auto !important;
 }
-
 .red {
   fill: #ed1a3b !important;
 }
-
 .white {
   /*display: none !important;*/
   fill: url(#diagonalHatch) !important;
 }
-
 .country-selected {
   /*display: none !important;*/
   fill: url(#diagonalHatch) !important;
 }
-
 #map {
   height: 100%;
 }
-
 .lightgrey {
   fill: lightgrey !important;
 }
-
 .countries path {
   fill: lightgrey;
   stroke: white;
   stroke-width: 1.5;
   opacity: 0.8;
 }
-
 .tooltip {
   text-align: center;
   z-index: 100000;
@@ -16096,7 +15992,6 @@ path {
   text-shadow: rgba(0, 0, 0, 0.0980392) 1px 1px 1px;
   box-shadow: rgba(0, 0, 0, 0.0980392) 1px 1px 2px 0px;
 }
-
 .tooltip h2 {
   color: #727272;
   background: white;
@@ -16104,7 +15999,6 @@ path {
   padding: 7px !important;
   /*padding: 0px !important;*/
 }
-
 .tooltip h4 {
   padding: 7px !important;
   color: #212529;
@@ -16112,77 +16006,62 @@ path {
   color: white;
   font-weight: bold;
 }
-
 /* Policies */
-
 .legendTitlePolicies {
   fill: black;
   font-size: 0.8em;
   font-weight: bold;
 }
-
 /* Flows */
-
 .buttonClean circle {
   fill: red;
   stroke: white;
   stroke-width: 2px;
 }
-
 .buttonClean text {
   font-weight: bold;
   fill: white;
 }
-
 /* Slider */
 .ticks {
   font-size: 10px;
 }
-
 .track,
 .track-inset,
 .track-overlay {
   stroke-linecap: round;
 }
-
 .track {
   stroke: #000;
   stroke-opacity: 0.3;
   stroke-width: 10px;
 }
-
 .track-inset {
   stroke: #dcdcdc;
   stroke-width: 8px;
 }
-
 .track-overlay {
   pointer-events: stroke;
   stroke-width: 50px;
   stroke: transparent;
   cursor: crosshair;
 }
-
 .handle {
   fill: #fff;
   stroke: #000;
   stroke-opacity: 0.5;
   stroke-width: 1.25px;
 }
-
 g.slider {
   font-weight: bold;
   fill: white;
 }
-
 /* Legend */
-
 .legendTitle {
   fill: white;
   font-weight: bold;
   font-size: 1em;
 }
-
 .legendCells text {
   fill: black;
   pointer-events: none;

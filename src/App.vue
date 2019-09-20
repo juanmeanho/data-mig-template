@@ -29,6 +29,10 @@ export default {
     .v-slider__thumb-label > div > span{
       color: #ffffff;
     }
+    .v-tabs-slider-wrapper{
+      height: 4px !important;
+    }
+
 
 </style>
 
