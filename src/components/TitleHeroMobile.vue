@@ -1,7 +1,6 @@
 <template>
     <v-layout >
-        <template xs12>
-            <v-container class="pa-2" fluid :class="{'mt-12': $vuetify.breakpoint.mdAndUp}">
+        
                 <v-layout row align-center>
                         <v-flex>
                             <v-layout justify-center>
@@ -30,8 +29,7 @@
                             </v-layout>
                         </v-flex>
                 </v-layout>
-            </v-container>
-        </template>
+            
     </v-layout>
 </template>
 

@@ -48,7 +48,7 @@
         <div class="numbers" :class="{'mt-n4': $vuetify.breakpoint.xsOnly,'mt-n3': $vuetify.breakpoint.smAndUp}">
             {{ nu_id }}
         </div>
-        <div class="flujos" :class="{'mt-n2': $vuetify.breakpoint.xsOnly, 'mt-1': $vuetify.breakpoint.smAndUp}">
+        <div class="flujos" :class="{'mt-n2': $vuetify.breakpoint.xsOnly, 'mt-n1': $vuetify.breakpoint.smAndUp}">
             {{ text_id }}
             
         </div>
@@ -108,14 +108,14 @@ export default {
     
 <style scoped>
   .logo{
-    background-color:rgba(150,150,150,0.2);
+    background-color:rgba(150,150,150,0.07);
     height:inherit;
     padding:20px;
     width:147px;
   }
 
   .end-bar{
-    background-color:rgba(150,150,150,0.2);
+    background-color:rgba(150,150,150,0.07);
     height:inherit;
     padding:25px;
     width:193px;

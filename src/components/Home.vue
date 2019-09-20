@@ -4,8 +4,8 @@
       <!-- Toolbar -->
       <toolbar></toolbar>
 
-      <!-- Title Hero-->
-      <title-hero-mobile></title-hero-mobile>
+      <!-- Title Hero
+      <title-hero-mobile></title-hero-mobile>-->
   
       <!-- Hero cards -->
       <hero-cards-mobile></hero-cards-mobile>
@@ -47,16 +47,17 @@
             </div>
             <!-- tabs -->
               <div class="mt-12 mx-auto" style="width:80%;text-align:center;">
-                <v-tabs v-model="tab" class="elevation-6 pt-8" fixed-tabs>
-                  <v-tabs-slider color="#e56910"></v-tabs-slider>
-                    <v-tab active-class="#3369de" v-for="i in tabs" :key="i" :href="`#tab-${i}`" >
-                      Tab {{ i }}
+                <v-tabs height="90px" v-model="tab" class="elevation-3 pt-8"  fixed-tabs>
+                  <v-tabs-slider  color="#e56910"></v-tabs-slider>
+                    <v-tab   class="text-none mr-0 pr-0 pl-0 ml-n0 pl-0" active-class="#3369de" v-for="i in tabs" :key="i" 
+                    :href="`#tab-${i}`" >
+                      <div class="mr-0 pr-0 ml-0" > Tab {{ i }} </div>
                     </v-tab>
-                      <v-tab-item v-for="i in tabs" :key="i" :value="'tab-' + i" >
+                      <v-tab-item  v-for="i in tabs" :key="i" :value="'tab-' + i" >
                         <v-card flat tile >
                           <template >
                             <v-list v-for="(item, index) in items" :key="index">
-                              <v-divider></v-divider>
+                              <v-divider v-if="index > 0"></v-divider>
                             <v-list-item >
                               <v-list-item-content >
                                 <v-layout>
@@ -96,7 +97,7 @@
                   </v-flex>
                 </v-layout>
                     <div class="ml-0 pl-0" id="chip-usage-example"
-                    :class="{'ml-12': $vuetify.breakpoint.smAndUp,
+                    :class="{'ml-7': $vuetify.breakpoint.smAndUp,
                             'ml-0': $vuetify.breakpoint.xsOnly ,'pl-12': $vuetify.breakpoint.smAndUp,
                             'pl-0': $vuetify.breakpoint.xsOnly}">
                       <v-chip class="ml-4 pt-1"><span class="text-chips">FLUJOS</span></v-chip>
@@ -109,7 +110,7 @@
                   <v-footer padless class="mb-12" color="#f2f2f2">
                     <v-flex xs6sm9>
                       <v-row wrap no-gutters class="ml-0 pl-0" 
-                      :class="{'ml-12': $vuetify.breakpoint.smAndUp,
+                      :class="{'ml-7': $vuetify.breakpoint.smAndUp,
                             'ml-0': $vuetify.breakpoint.xsOnly ,'pl-12': $vuetify.breakpoint.smAndUp,
                             'pl-0': $vuetify.breakpoint.xsOnly}">
                         <v-btn
@@ -132,14 +133,14 @@
                     </v-footer>
                   </v-flex>
                   <v-flex sm3 ml-n6>
-                    <v-layout class="ml-0 mt-6"
-                    :class="{'ml-12': $vuetify.breakpoint.mdAndUp,
+                    <v-layout class="ml-0 mt-6 hidden-md-and-down"
+                    :class="{'ml-0': $vuetify.breakpoint.mdAndUp,
                               'pl-6': $vuetify.breakpoint.mdAndUp,
                             'ml-n6': $vuetify.breakpoint.xsOnly}">
-                      <v-flex class="">
-                        <v-img src="@/assets/group-8.png" width="48px" height="48px"></v-img>
+                      <v-flex class=" ml-12 pl-6">
+                        <v-img  src="@/assets/group-8.png" width="48px" height="48px"></v-img>
                       </v-flex>
-                      <v-flex class="mr-0 ml-0">
+                      <v-flex class="mr-12 ml-n4">
                         <v-img src="@/assets/group-7.png" class="ml-0 mr-0" width="48px" height="48px"></v-img>
                       </v-flex>
                     </v-layout>
@@ -156,7 +157,7 @@
 <script>
 
 import Toolbar from './Toolbar';
-import TitleHeroMobile from './TitleHeroMobile';
+//import TitleHeroMobile from './TitleHeroMobile';
 //import TitleHeroDesktop from './TitleHeroDesktop';
 import HeroCardsMobile from './HeroCardsMobile';
 import HeroCardsDesktop from './HeroCardsDesktop';
@@ -172,7 +173,7 @@ import DatasetsCardsDesktop from './DatasetsCardsDesktop';
 export default {
   components: {
     Toolbar,
-    TitleHeroMobile,
+    //TitleHeroMobile,
     //TitleHeroDesktop,
     HeroCardsMobile,
     HeroCardsDesktop,
@@ -286,7 +287,7 @@ export default {
 
 .dash-download {
   border-top: 0.5px solid;
-  width: 160px;
+  width: 170px;
   color: #3369de;
 }
 .download-link{
@@ -339,7 +340,6 @@ export default {
 }
 
 .datasets {
-  width: 230px;
   height: 105px;
   font-family: 'Hind Guntur', sans-serif;  
   font-size: 56px;
@@ -439,7 +439,32 @@ export default {
   color: #ffffff;
 }
 
+ .numbers-tb{
+  height: 31px;
+  opacity: 0.5;
+  font-family: 'Hind Guntur', sans-serif;  
+  font-size: 14px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.21;
+  letter-spacing: normal;
+  color: #3369de;
+}
+
 .flujos-dataset {
+  height: 31px;
+  font-family: 'Hind Guntur', sans-serif;  
+  font-size: 24px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  color: #3369de;
+}
+
+.flujos-tb {
   height: 31px;
   font-family: 'Hind Guntur', sans-serif;  
   font-size: 24px;
