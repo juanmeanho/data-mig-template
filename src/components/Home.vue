@@ -59,20 +59,20 @@
                 :key="i"
                 :href="`#tab-${i}`"
               >
-                <div class="mr-0 pr-0 ml-0">Tab {{ i }}</div>
+                <div class="mr-0 pr-0 ml-0" v-text="$ml.get('tab')"></div>
               </v-tab>
               <v-tab-item v-for="i in tabs" :key="i" :value="'tab-' + i">
                 <v-card flat tile>
                   <template>
-                    <v-list v-for="(item, index) in items" :key="index">
+                    <v-list v-for="(item, index) in resources" :key="index">
                       <v-divider v-if="index > 0"></v-divider>
                       <v-list-item>
                         <v-list-item-content>
                           <v-layout>
                             <v-flex>
                               <div class="mt-4" style="text-align:left">
-                                <span class="tabs-country">{{ item.title }}</span>-
-                                <span class="tabs-link">{{ item.link }}</span>
+                                <span class="tabs-country">{{ item.title_en }}</span>-
+                                <span class="tabs-link">{{ item.url_en }}</span>
                               </div>
                             </v-flex>
                           </v-layout>
@@ -183,6 +183,7 @@
 
 <script>
 import Toolbar from "./Toolbar";
+import axios from "axios";
 //import TitleHeroMobile from './TitleHeroMobile';
 //import TitleHeroDesktop from './TitleHeroDesktop';
 import HeroCardsMobile from "./HeroCardsMobile";
@@ -210,58 +211,21 @@ export default {
   },
   data: () => ({
     show: false,
-    datasets: [
-      {
-        title: "Pre-fab homes",
-        src: "https://cdn.vuetifyjs.com/images/cards/house.jpg",
-        flex: 3
-      },
-      {
-        title: "Favorite road trips",
-        src: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
-        flex: 3
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        flex: 3
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        flex: 3
-      }
-    ],
     tab: null,
-    text:
-      "labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    tabs: 4,
-    items: [
-      {
-        title: "Argentina ",
-        link: "Instituto Nacional de Estadísticas y Censos (INDEC)"
-      },
-      { title: "Bahamas ", link: "Dept. of Statistics" },
-      {
-        title: "Barbados ",
-        link: "Barbados Statistical Service, Ministry of Finance"
-      },
-      { title: "Belice ", link: "Statistical Institute of Belize" },
-      {
-        title: "Brasil ",
-        link:
-          "Ministério do Desenvolvimento, Indústria e Comércio Exterior de Brasil"
-      },
-      { title: "Bolivia ", link: "Instituto Nacional de Estadística" },
-      { title: "Chile ", link: "Servicio Nacional de Aduanas" },
-      {
-        title: "Colombia ",
-        link: "Departamento Administrativo Nacional de Estadísticas (DANE)"
-      },
-      { title: "Costa Rica ", link: "Instituto Nacional de Estadística" }
-    ],
-    links: ["DATAMIG", "El Proyecto", "Datasets", "Referencias Externas"]
-  })
+    tabs: 1,
+    links: ["DATAMIG", "El Proyecto", "Datasets", "Referencias Externas"],
+    resources: null
+  }),
+  methods: {
+    async getResource() {
+      console.log("entra");
+      let resource = await axios.get("//backend.datamig.org/en/api/resource");
+      this.resources = await resource.data.data;
+    }
+  },
+  created() {
+    this.getResource();
+  }
 };
 </script>
 

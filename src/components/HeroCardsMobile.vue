@@ -61,21 +61,32 @@ export default {
       {
         title: "flow",
         text: "flow_data",
+        to: "Flow",
         flex: 3,
         number: "01",
         class: "flujos_hover"
       },
-      { title: "visa", text: "", flex: 3, number: "02", class: "visas_hover" },
+
       {
         title: "policy",
         text: "policiy_data",
+        to: "Policy",
         flex: 3,
         number: "03",
         class: "indicadores_hover"
       },
       {
+        title: "visa",
+        to: "#",
+        text: "",
+        flex: 3,
+        number: "02",
+        class: "visas_hover"
+      },
+      {
         title: "agreement",
         text: "",
+        to: "#",
         flex: 3,
         number: "04",
         class: "acuerdos_hover"

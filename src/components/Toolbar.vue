@@ -140,7 +140,7 @@
                     <div>
                       <v-card
                         style="z-index: 9999"
-                        :to="{ name: 'Dashboard', params: { nu_id: card.text, text_id: card.title } }"
+                        :to="{ name: card.to, params: { nu_id: card.text, text_id: card.title } }"
                         target="_blank"
                         color="white"
                         flat
@@ -199,13 +199,27 @@ export default {
     lang: ["ES", "EN"],
     switchToolbar: true,
     classHover: "numbers-tb",
+    resources: null,
+    cards: [
+      { title: "flow", text: "flow_data", flex: 3, number: "01" },
+      { title: "policy", text: "policiy_data", flex: 3, number: "02" },
+      { title: "visa", text: "", flex: 3, number: "03" },
+      { title: "agreement", text: "", flex: 3, number: "04" }
+    ],
     menu: [
       { icon: "home", title: "Iniciativa de Migraciones" },
       { icon: "info", title: "El Proyecto" },
       { icon: "warning", title: "Datasets" },
       { icon: "warning", title: "Referencias Externas" }
     ]
-  })
+  }),
+  methods: {
+    async getResource() {
+      let resources = await axios.get(
+        "http://backend.datamig.org/en/api/resource"
+      );
+    }
+  }
 };
 </script>
 

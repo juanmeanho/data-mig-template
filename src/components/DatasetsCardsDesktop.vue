@@ -43,8 +43,8 @@ export default {
     //
     cards: [
       { title: "flow", text: "flow_data", flex: 3, number: "01" },
-      { title: "visa", text: "", flex: 3, number: "02" },
-      { title: "policy", text: "policiy_data", flex: 3, number: "03" },
+      { title: "policy", text: "policiy_data", flex: 3, number: "02" },
+      { title: "visa", text: "", flex: 3, number: "03" },
       { title: "agreement", text: "", flex: 3, number: "04" }
     ]
   })

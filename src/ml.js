@@ -8,10 +8,10 @@ export default new MLCreate({
   save: process.env.NODE_ENV === "production",
   languages: [
     new MLanguage("ENG").create({
-      flow: "Flow",
-      visa: "Visas",
+      flow: "Statistics",
+      visa: "Visas (Under Construction)",
       policy: "Policy Indicators",
-      agreement: "International Agreements",
+      agreement: "International Agreements (Under Construction)",
       datamig: "DataMIG",
       datamig_desc:
         "The IDB Migration Initiative collects data on migration and migration policy in order to support analysis and to inform policy and operations. This portal serves to make that data available to the broader community.",
@@ -30,14 +30,17 @@ export default new MLCreate({
       policiy_data:
         "The data underlying the Migration Policy Indicators, including the observations and source links, is included in the data file. The criteria applied for each indicator is documented in the methodology.",
       flow_data:
-        "The data underlying the Migration Statistics is included in the data file. "
+        "The data underlying the Migration Statistics is included in the data file. ",
+      tab: "National Migration Website",
+      empty: "",
+      flow_viz: "Number of Migrants Residing in LAC"
     }),
 
     new MLanguage("-ESP").create({
-      flow: "Flujos",
-      visa: "Visas",
-      policy: "Indicadores de Politica",
-      agreement: "Acuerdos Internaciones",
+      flow: "Estadisticas",
+      visa: "Visas (Bajo Construcción)",
+      policy: "Indicadores de Política",
+      agreement: "Acuerdos Internacionales (Bajo Construcción)",
       datamig: "DataMIG",
       datamig_desc:
         "La Iniciativa de Migraciones del BID recopila data sobre migraciones y política migratoria para apoyar análisis y para informar la política y las operaciones. Este portal sirve para hacer disponible esa data a la comunidad amplia.",
@@ -55,7 +58,10 @@ export default new MLCreate({
       policiy_data:
         "Los datos subyacentes de los Indicadores de Política Migratoria, incluyendo sus observaciones y enlaces a las fuentes, se incluye en el archivo de datos. Los criterios aplicados en cada indicador se documentan en la metodología.",
       flow_data:
-        "Los datos subyacentes de las estadísticas Migratorias se incluyen en el archivo de datos."
+        "Los datos subyacentes de las estadísticas Migratorias se incluyen en el archivo de datos.",
+      tab: "Sitio Web Nacional de Migración",
+      empty: "",
+      flow_viz: "Número de Migrantes Residentes en LAC"
     })
   ]
 });

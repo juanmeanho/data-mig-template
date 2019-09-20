@@ -92,25 +92,16 @@
         </v-layout>
         <!-- /Mapa -->
       </v-container>
-      <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-        <v-card>
-          <v-toolbar dark color="primary">
-            <v-btn icon dark @click="dialog = false">
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-            <v-toolbar-title>{{modalTitle}}</v-toolbar-title>
-            <div class="flex-grow-1"></div>
-          </v-toolbar>
-          <v-list three-line subheader>
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-subtitle v-html="modalBody"></v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-          <v-divider></v-divider>
-        </v-card>
-      </v-dialog>
+    <v-dialog v-model="dialog" max-width="90%">          
+          <v-card>
+            <v-card-title class="headline">{{modalTitle}}</v-card-title>
+            <v-card-text v-html="modalBody"></v-card-text>
+            <v-card-actions>
+              <div class="flex-grow-1"></div>              
+              <v-btn color="green darken-1" text @click="dialog = false">Close</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>      
     </v-content>
   </div>
 </template>
@@ -15228,13 +15219,8 @@ export default {
             }),
           exit => exit.remove()
         );
-      d3.select(".policies").on("click", function() {
-        $(".policies-selector").css("display", "block");
-        $(".flows-selector").css("display", "none");
-        d3.select(".map-flows").style("display", "none");
-        d3.select(".map-policies").style("display", "block");
-        this.clicked(2.6, 3, 2);
-      });
+     
+     
       this.drawGeneralMarkers(data.data);
       this.clicked(2.6, 3, 2);
       this.datum = data.data;
@@ -15971,9 +15957,7 @@ path {
   /*display: none !important;*/
   fill: url(#diagonalHatch) !important;
 }
-#map {
-  height: 100%;
-}
+
 .lightgrey {
   fill: lightgrey !important;
 }
@@ -15983,15 +15967,19 @@ path {
   stroke-width: 1.5;
   opacity: 0.8;
 }
+
 .tooltip {
   text-align: center;
+  font-family: "Hind Guntur", sans-serif;
   z-index: 100000;
   position: absolute;
   color: #181818;
   background: white;
   text-shadow: rgba(0, 0, 0, 0.0980392) 1px 1px 1px;
   box-shadow: rgba(0, 0, 0, 0.0980392) 1px 1px 2px 0px;
+  
 }
+
 .tooltip h2 {
   color: #727272;
   background: white;
@@ -15999,71 +15987,12 @@ path {
   padding: 7px !important;
   /*padding: 0px !important;*/
 }
+
 .tooltip h4 {
-  padding: 7px !important;
+  padding: 7px !important;  
   color: #212529;
   background-color: #3c78fa;
   color: white;
   font-weight: bold;
-}
-/* Policies */
-.legendTitlePolicies {
-  fill: black;
-  font-size: 0.8em;
-  font-weight: bold;
-}
-/* Flows */
-.buttonClean circle {
-  fill: red;
-  stroke: white;
-  stroke-width: 2px;
-}
-.buttonClean text {
-  font-weight: bold;
-  fill: white;
-}
-/* Slider */
-.ticks {
-  font-size: 10px;
-}
-.track,
-.track-inset,
-.track-overlay {
-  stroke-linecap: round;
-}
-.track {
-  stroke: #000;
-  stroke-opacity: 0.3;
-  stroke-width: 10px;
-}
-.track-inset {
-  stroke: #dcdcdc;
-  stroke-width: 8px;
-}
-.track-overlay {
-  pointer-events: stroke;
-  stroke-width: 50px;
-  stroke: transparent;
-  cursor: crosshair;
-}
-.handle {
-  fill: #fff;
-  stroke: #000;
-  stroke-opacity: 0.5;
-  stroke-width: 1.25px;
-}
-g.slider {
-  font-weight: bold;
-  fill: white;
-}
-/* Legend */
-.legendTitle {
-  fill: white;
-  font-weight: bold;
-  font-size: 1em;
-}
-.legendCells text {
-  fill: black;
-  pointer-events: none;
 }
 </style>

@@ -11,7 +11,7 @@
         <v-flex xs>
           <div :class="[borderLeft, (card.text == '04') ? borderRight : '']">
             <v-card
-              :to="{ name: 'Dashboard', params: { nu_id: card.text, text_id: card.title } }"
+              :to="{ name: card.to, params: { nu_id: card.text, text_id: card.title } }"
               target="_blank"
               color="rgba(0,0,0,0.2)"
               flat
@@ -39,23 +39,33 @@ export default {
       {
         title: "flow",
         text: "flow_data",
+        to: "Flow",
         flex: 3,
         number: "01",
         class: "flujos_hover"
       },
-      { title: "visa", text: "", flex: 3, number: "02", class: "visas_hover" },
       {
         title: "policy",
         text: "policiy_data",
+        to: "Policy",
         flex: 3,
-        number: "03",
+        number: "02",
         class: "indicadores_hover"
       },
       {
-        title: "agreement",
-        text: "",
+        title: "visa",
+        to: "",
+        text: "empty",
         flex: 3,
-        number: "04",
+        number: "02",
+        class: "visas_hover"
+      },
+      {
+        title: "agreement",
+        to: "",
+        text: "empty",
+        flex: 3,
+        number: "03",
         class: "acuerdos_hover"
       }
     ],
