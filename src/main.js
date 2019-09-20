@@ -8,7 +8,10 @@ import ArrowDown from "vue-material-design-icons/ArrowDown.vue";
 import "./ml";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import router from "./router";
+import VueRouter from "vue-router";
 
+Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
 
 Vue.component("menu-icon", MenuIcon);
@@ -19,5 +22,6 @@ Vue.config.productionTip = false;
 
 new Vue({
   vuetify,
+  router,
   render: h => h(App)
 }).$mount("#app");

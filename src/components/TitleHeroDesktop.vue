@@ -8,7 +8,7 @@
               <v-layout justify-end>
                 <v-card flat color="transparent" class="rounded-card">
                   <v-card-title class="data-mig">
-                    <p v-text="$ml.get('datamig')" />
+                    <div v-text="$ml.get('datamig')"></div>
                   </v-card-title>
                 </v-card>
               </v-layout>
@@ -29,9 +29,7 @@
                 <v-card flat color="transparent" class="ml-n5 rounded-card">
                   <v-card-title class="text-hero-right">
                     <v-flex mt-5>
-                      <div class="mt-12 mr-12">
-                        <p v-text="$ml.get('datamig_desc')" />
-                      </div>
+                      <div class="mt-12 mr-12" v-text="$ml.get('datamig_desc')"></div>
                     </v-flex>
                   </v-card-title>
                 </v-card>

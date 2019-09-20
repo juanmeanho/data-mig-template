@@ -1,11 +1,13 @@
 <template>
   <v-app>
-    <home></home>
+      <router-view/>
   </v-app>
 </template>
 
 <script>
+
 import Home from "./components/Home";
+
 
 export default {
   name: "App",
@@ -17,3 +19,16 @@ export default {
   })
 };
 </script>
+
+<style>
+    .v-toolbar__content {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+    .v-slider__thumb-label > div > span{
+      color: #ffffff;
+    }
+
+</style>
+

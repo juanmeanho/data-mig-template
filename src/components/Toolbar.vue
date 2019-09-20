@@ -1,47 +1,52 @@
 <template>
   <v-layout row>
     <template>
-      <v-flex md2>
-        <v-card
-          class="rounded-card pl-12 pt-10"
-          color="rgba(150,150,150,0.2)"
-          height="154"
-          width="225"
-        >
-          <v-img max-height="31" max-width="140" class="mt-6" src="../assets/group-2-copy.svg"></v-img>
-        </v-card>
-      </v-flex>
-    </template>
-    <template>
-      <v-flex md10>
+      <v-flex>
         <div>
-          <v-toolbar class="mt-12" color="transparent" flat dark>
-            <v-btn class="hidden-sm-and-down custom-transform-class text-none" text>
-              <p v-text="$ml.get('initiative')" />
-            </v-btn>
+          <!-- Hover toolbar effect <v-app-bar 
+                fixed  
+                class="mb-12" 
+                color="transparent" 
+                elevate-on-scroll="true" 
+                dark 
+                height="154" 
+                width="100%"
+          >-->
+          <v-app-bar color="transparent" flat dark height="154" width="100%">
+            <v-card
+              class="rounded-card pl-12 pt-10"
+              color="rgba(255,255,255,0.2)"
+              height="154"
+              width="225"
+              outlined="false"
+            >
+              <v-img max-height="57" max-width="130" class="mt-2" src="@/assets/logo-dmw-1.png"></v-img>
+            </v-card>
+            <v-btn
+              class="hidden-sm-and-down custom-transform-class text-none"
+              text
+              v-text="$ml.get('initiative')"
+            ></v-btn>
             <div class="hidden-sm-and-down flex-grow-1"></div>
             <v-btn
-              class="hidden-sm-and-down custom-transform-class text-none grey--text text--lighten-1"
+              class="hidden-sm-and-down custom-transform-class text-none white--text text--lighten-1"
               text
-            >
-              <p v-text="$ml.get('project')" />
-            </v-btn>
+              v-text="$ml.get('project')"
+            ></v-btn>
             <div class="hidden-sm-and-down flex-grow-1"></div>
             <v-btn
-              class="hidden-sm-and-down custom-transform-class text-none grey--text text--lighten-1"
+              class="hidden-sm-and-down custom-transform-class text-none white--text text--lighten-1"
               text
-            >
-              <p v-text="$ml.get('datasets')" />
-            </v-btn>
+              v-text="$ml.get('datasets')"
+            ></v-btn>
             <div class="hidden-sm-and-down flex-grow-1"></div>
             <v-btn
-              class="hidden-sm-and-down custom-transform-class text-none grey--text text--lighten-1"
+              class="hidden-sm-and-down custom-transform-class text-none white--text text--lighten-1"
               text
-            >
-              <p v-text="$ml.get('references')" />
-            </v-btn>
+              v-text="$ml.get('references')"
+            ></v-btn>
             <div class="hidden-sm-and-down flex-grow-1"></div>
-            <v-btn class="hidden-sm-and-down grey--text text--lighten-1" text>
+            <v-btn class="hidden-sm-and-down white--text text--lighten-1" text>
               <button v-for="lang in $ml.list" :key="lang" @click="$ml.change(lang)" v-text="lang" />
             </v-btn>
             <v-btn icon class="hidden-sm-and-down">
@@ -64,7 +69,7 @@
                 </v-menu>
               </div>
             </v-layout>
-          </v-toolbar>
+          </v-app-bar>
         </div>
       </v-flex>
     </template>
@@ -74,7 +79,7 @@
 <script>
 export default {
   data: () => ({
-    //
+    lang: ["ES", "EN"],
     menu: [
       { icon: "home", title: "Iniciativa de Migraciones" },
       { icon: "info", title: "El Proyecto" },

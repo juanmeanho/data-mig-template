@@ -1,5 +1,9 @@
 <template>
-  <v-layout class="hidden-md-and-up">
+  <v-layout
+    class="hidden-md-and-up"
+    :class="{'mb-n5': $vuetify.breakpoint.smAndUp,
+                'mb-12': $vuetify.breakpoint.xs}"
+  >
     <template xs12>
       <v-container class="pa-2" fluid>
         <v-layout row align-center>
@@ -9,9 +13,7 @@
                 <v-card flat color=" transparent" class="rounded-card">
                   <v-img class="white--text" height="100px">
                     <v-card-title class="data-mig">
-                      <div class="datasets">
-                        <p v-text="$ml.get('datasets')" />
-                      </div>
+                      <div class="datasets" v-text="$ml.get('datasets')"></div>
                     </v-card-title>
                   </v-img>
                 </v-card>
@@ -21,17 +23,11 @@
 
           <template>
             <v-layout justify-center>
-              <v-card flat color="transparent" class="rounded-card">
+              <v-card flat color="transparent" class="rounded-card" width="80%">
                 <v-card-title class="text-hero-right">
                   <v-layout justify-center>
                     <v-flex xs10>
-                      <div
-                        class="datasets-description"
-                        :class="{'width-text-md': $vuetify.breakpoint.smAndUp,
-                                                    'width-text-xs': $vuetify.breakpoint.xsOnly}"
-                      >
-                        <p v-text="$ml.get('datasets_desc')" />
-                      </div>
+                      <div class="datasets-description" v-text="$ml.get('datasets_desc')"></div>
                     </v-flex>
                   </v-layout>
                 </v-card-title>

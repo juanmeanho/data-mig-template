@@ -1,25 +1,22 @@
 <template>
   <v-card class="rounded-card" width="100%">
-    <v-img class="white--text" height="860px" src="../assets/hero.png">
+    <v-img class="white--text" height="860px" src="@/assets/hero.svg">
       <!-- Toolbar -->
       <toolbar></toolbar>
 
       <!-- Title Hero-->
       <title-hero-mobile></title-hero-mobile>
-      <title-hero-desktop></title-hero-desktop>
 
       <!-- Hero cards -->
       <hero-cards-mobile></hero-cards-mobile>
       <hero-cards-desktop></hero-cards-desktop>
-
-      <!-- /Hero cards -->
     </v-img>
     <!-- Acerca de -->
     <acerca-mobile></acerca-mobile>
     <acerca-desktop></acerca-desktop>
 
     <!-- Datasets -->
-    <v-img class="white--text mt-12" height="860px" src="../assets/bg.png">
+    <v-img class="white--text mt-12" height="860px" src="@/assets/bg.svg">
       <!-- Datasets title-->
       <title-datasets-desktop></title-datasets-desktop>
       <title-datasets-mobile></title-datasets-mobile>
@@ -28,45 +25,51 @@
       <datasets-cards-mobile></datasets-cards-mobile>
       <datasets-cards-desktop></datasets-cards-desktop>
     </v-img>
-    <!-- /Datasets -->
 
     <!-- Card Tabs -->
     <v-container class="pa-2 mx-auto mt-12" fluid>
       <v-row>
         <v-col>
-          <div class="display-1 proyecto mx-auto mb-4" style="width:100%;text-align:center;">
-            <p v-text="$ml.get('references')" />
+          <div style="width:100%;position:relative;">
+            <v-img
+              width="71px"
+              height="71px"
+              style="margin:auto;display:block;"
+              src="@/assets/group-109.png"
+            ></v-img>
           </div>
+          <div
+            class="display-1 proyecto mx-auto mb-4 mt-4"
+            style="width:100%;text-align:center;"
+            v-text="$ml.get('references')"
+          ></div>
           <div
             class="proyecto-descripcion-referencia mx-auto mt-n10"
             style="width:50%;text-align:center;"
-          >
-            <p v-text="$ml.get('references_desc')" />
-          </div>
+            v-text="$ml.get('references_desc')"
+          ></div>
           <!-- tabs -->
           <div class="mt-12 mx-auto" style="width:80%;text-align:center;">
             <v-tabs v-model="tab" class="elevation-6 pt-8" fixed-tabs>
               <v-tabs-slider color="#e56910"></v-tabs-slider>
               <v-tab
-                active-class="black--text"
+                active-class="#3369de"
                 v-for="i in tabs"
                 :key="i"
                 :href="`#tab-${i}`"
               >Tab {{ i }}</v-tab>
-
               <v-tab-item v-for="i in tabs" :key="i" :value="'tab-' + i">
                 <v-card flat tile>
                   <template>
                     <v-list v-for="(item, index) in items" :key="index">
                       <v-divider></v-divider>
-
                       <v-list-item>
                         <v-list-item-content>
                           <v-layout>
                             <v-flex>
                               <div class="mt-4" style="text-align:left">
-                                <span class=".Argentina---Institut">{{ item.title }}</span>
-                                <span class="Argentina---Institut text-style-1">{{ item.link }}</span>
+                                <span class="tabs-country">{{ item.title }}</span>-
+                                <span class="tabs-link">{{ item.link }}</span>
                               </div>
                             </v-flex>
                           </v-layout>
@@ -95,16 +98,14 @@
             :class="{'mx-12': $vuetify.breakpoint.smAndUp,
                 'mx-0': $vuetify.breakpoint.xsOnly}"
           >
-            <!--<v-layout row justify-center mx-12 mb-5>-->
             <v-flex lg10>
-              <v-img class="white--text mt-12 ml-12" width="101px" src="../assets/bid.png"></v-img>
+              <v-img class="white--text mt-12 ml-12" width="101px" src="@/assets/bid.png"></v-img>
             </v-flex>
 
             <v-flex class="pl-12 md-6">
-              <v-img class="white--text mt-12" width="101px" src="../assets/group-2-copy.png"></v-img>
+              <v-img class="white--text mt-12" width="101px" src="@/assets/group-2-copy.png"></v-img>
             </v-flex>
           </v-layout>
-          <!--<div class="ml-12 pl-12" id="chip-usage-example">-->
           <div
             class="ml-0 pl-0"
             id="chip-usage-example"
@@ -112,11 +113,18 @@
                             'ml-0': $vuetify.breakpoint.xsOnly ,'pl-12': $vuetify.breakpoint.smAndUp,
                             'pl-0': $vuetify.breakpoint.xsOnly}"
           >
-            <div v-for="item in sections" :key="item.id">
-              <v-chip class="ml-4 pt-1">
-                <span class="text-chips">{{ item.title_en }}</span>
-              </v-chip>
-            </div>
+            <v-chip class="ml-4 pt-1">
+              <span class="text-chips" v-text="$ml.get('flow')"></span>
+            </v-chip>
+            <v-chip w class="ml-4 pt-1">
+              <span class="text-chips" v-text="$ml.get('visa')"></span>
+            </v-chip>
+            <v-chip class="ml-4 pt-1">
+              <span class="text-chips" v-text="$ml.get('policy')"></span>
+            </v-chip>
+            <v-chip class="ml-4 pt-1">
+              <span class="text-chips" v-text="$ml.get('agreement')"></span>
+            </v-chip>
           </div>
           <v-layout>
             <v-flex xs10>
@@ -141,7 +149,7 @@
                     <v-col
                       class="py-4 text-left ml-4 address"
                       cols="12"
-                    >13008 New York Avenue, NW Washington, DC 20577, USA ©2019 Banco Interamericano de Desarrollo, BID</v-col>
+                    >1300 New York Avenue, NW Washington, DC 20577, USA ©2019 Banco Interamericano de Desarrollo, BID</v-col>
                   </v-row>
                 </v-flex>
               </v-footer>
@@ -154,10 +162,10 @@
                             'ml-n6': $vuetify.breakpoint.xsOnly}"
               >
                 <v-flex class>
-                  <v-img src="../assets/group-8.png" width="48px" height="48px"></v-img>
+                  <v-img src="@/assets/group-8.png" width="48px" height="48px"></v-img>
                 </v-flex>
                 <v-flex class="mr-0 ml-0">
-                  <v-img src="../assets/group-7.png" class="ml-0 mr-0" width="48px" height="48px"></v-img>
+                  <v-img src="@/assets/group-7.png" class="ml-0 mr-0" width="48px" height="48px"></v-img>
                 </v-flex>
               </v-layout>
             </v-flex>
@@ -173,7 +181,7 @@
 <script>
 import Toolbar from "./Toolbar";
 import TitleHeroMobile from "./TitleHeroMobile";
-import TitleHeroDesktop from "./TitleHeroDesktop";
+//import TitleHeroDesktop from './TitleHeroDesktop';
 import HeroCardsMobile from "./HeroCardsMobile";
 import HeroCardsDesktop from "./HeroCardsDesktop";
 import AcercaDesktop from "./AcercaDesktop";
@@ -182,13 +190,12 @@ import TitleDatasetsDesktop from "./TitleDatasetsDesktop";
 import TitleDatasetsMobile from "./TitleDatasetsMobile";
 import DatasetsCardsMobile from "./DatasetsCardsMobile";
 import DatasetsCardsDesktop from "./DatasetsCardsDesktop";
-import axios from "axios";
 
 export default {
   components: {
     Toolbar,
     TitleHeroMobile,
-    TitleHeroDesktop,
+    //TitleHeroDesktop,
     HeroCardsMobile,
     HeroCardsDesktop,
     AcercaDesktop,
@@ -199,9 +206,7 @@ export default {
     DatasetsCardsDesktop
   },
   data: () => ({
-    sections: null,
     show: false,
-
     datasets: [
       {
         title: "Pre-fab homes",
@@ -224,68 +229,52 @@ export default {
         flex: 3
       }
     ],
-
     tab: null,
     text:
       "labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-
     tabs: 4,
     items: [
       {
-        title: "Argentina - ",
+        title: "Argentina ",
         link: "Instituto Nacional de Estadísticas y Censos (INDEC)"
       },
-      { title: "Bahamas - ", link: "Dept. of Statistics" },
+      { title: "Bahamas ", link: "Dept. of Statistics" },
       {
-        title: "Barbados - ",
+        title: "Barbados ",
         link: "Barbados Statistical Service, Ministry of Finance"
       },
-      { title: "Belice - ", link: "Statistical Institute of Belize" },
+      { title: "Belice ", link: "Statistical Institute of Belize" },
       {
-        title: "Brasil - ",
+        title: "Brasil ",
         link:
           "Ministério do Desenvolvimento, Indústria e Comércio Exterior de Brasil"
       },
-      { title: "Bolivia - ", link: "Instituto Nacional de Estadística" },
-      { title: "Chile - ", link: "Servicio Nacional de Aduanas" },
+      { title: "Bolivia ", link: "Instituto Nacional de Estadística" },
+      { title: "Chile ", link: "Servicio Nacional de Aduanas" },
       {
-        title: "Colombia - ",
+        title: "Colombia ",
         link: "Departamento Administrativo Nacional de Estadísticas (DANE)"
       },
-      { title: "Costa Rica - ", link: "Instituto Nacional de Estadística" }
+      { title: "Costa Rica ", link: "Instituto Nacional de Estadística" }
     ],
     links: ["DATAMIG", "El Proyecto", "Datasets", "Referencias Externas"]
-  }),
-  methods: {
-    async getSection() {
-      let sections = await axios.get(
-        "http://backend.datamig.org/en/api/section"
-      );
-
-      this.sections = await sections.data;
-    }
-  },
-  created() {
-    this.getSection();
-  }
+  })
 };
 </script>
 
 
 <style>
-.size-image {
-  width: "715px";
-  height: "585px";
-}
-
-.size-image-md {
-  width: "300px";
-  height: "300px";
-}
-
-.size-image-xs {
-  width: "100px";
-  height: "100px";
+.tab-active {
+  width: 44px;
+  height: 37px;
+  font-family: "Hind Guntur", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: -0.19px;
+  color: #3369de;
 }
 
 .address {
@@ -315,26 +304,35 @@ export default {
   margin: 8px;
 }
 
-.Argentina---Institut {
+.tabs-country {
   width: 539px;
   height: 37px;
   font-family: "Hind Guntur", sans-serif;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: -0.19px;
+  color: #3369de;
+}
+.tabs-link {
+  width: 539px;
+  height: 37px;
+  font-family: "Hind Guntur", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
   letter-spacing: -0.19px;
   color: #e56910;
 }
-.Argentina---Institut .text-style-1 {
-  font-weight: 600;
-  color: #0c1147;
-}
 
 .dash-download {
   border-top: 0.5px solid;
   width: 160px;
+  color: #3369de;
 }
 .download-link {
   font-family: "Hind Guntur", sans-serif;
@@ -344,7 +342,7 @@ export default {
   font-stretch: normal;
   line-height: 1.67;
   letter-spacing: normal;
-  color: #ffffff;
+  color: #f05a23;
 }
 
 .desc-dataset {
@@ -357,7 +355,7 @@ export default {
   font-stretch: normal;
   line-height: 1.67;
   letter-spacing: normal;
-  color: #ffffff;
+  color: #3369de;
 }
 
 .mini-dataset {
@@ -370,7 +368,7 @@ export default {
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #ffffff;
+  color: #3369de;
 }
 
 .datasets-description {
@@ -399,7 +397,7 @@ export default {
 }
 
 .proyecto-descripcion-referencias {
-  width: 424px;
+  width: 100%;
   height: 104px;
   font-family: HindGuntur;
   font-size: 16px;
@@ -486,6 +484,31 @@ export default {
   color: #ffffff;
 }
 
+.flujos-dataset {
+  height: 31px;
+  font-family: "Hind Guntur", sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  color: #3369de;
+}
+
+.numbers-dataset {
+  height: 31px;
+  opacity: 0.5;
+  font-family: "Hind Guntur", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.21;
+  letter-spacing: normal;
+  color: #3369de;
+}
+
 .rounded-card {
   border-radius: 0px;
 }
@@ -493,7 +516,19 @@ export default {
 .data-mig {
   height: 1px;
   font-family: "Raleway", sans-serif;
-  font-size: 96px;
+  font-size: 126px;
+  font-weight: 100;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 2px;
+  color: #ffffff;
+}
+
+.data-mig-capital {
+  height: 1px;
+  font-family: "Raleway", sans-serif;
+  font-size: 126px;
   font-weight: 900;
   font-style: normal;
   font-stretch: normal;
@@ -515,16 +550,29 @@ export default {
 }
 
 .text-hero-right {
-  width: 491px;
   height: 90px;
   font-family: "Hind Guntur", sans-serif;
   font-size: 16px;
   font-weight: 500;
   font-style: normal;
   font-stretch: normal;
-  line-height: 30px;
+  line-height: normal;
   letter-spacing: normal;
   color: #ffffff;
+  text-align: center;
+}
+
+.text-datasets-right {
+  height: 90px;
+  font-family: "Hind Guntur", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+  text-align: left;
 }
 
 .text-hero-xs {
@@ -556,5 +604,25 @@ export default {
 .hero-footer:hover {
   cursor: pointer;
   background-color: #e56910;
+}
+
+.flujos_hover:hover {
+  cursor: pointer;
+  background-image: url("../assets/flujos_hover.svg");
+}
+
+.visas_hover:hover {
+  cursor: pointer;
+  background-image: url("../assets/visas_hover.svg");
+}
+
+.acuerdos_hover:hover {
+  cursor: pointer;
+  background-image: url("../assets/acuerdos_hover.svg");
+}
+
+.indicadores_hover:hover {
+  cursor: pointer;
+  background-image: url("../assets/indicadores_hover.svg");
 }
 </style>
