@@ -122,7 +122,7 @@ export default {
   }
 
   .item-bar{
-    background-color:#3369de;
+    background-color:#147dc5;
     height:inherit;
     padding:20px;
     width:229px;
@@ -136,7 +136,7 @@ export default {
     font-stretch: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #3369de;
+    color: #147dc5;
   }
 
 .indicators {
@@ -148,7 +148,7 @@ export default {
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #3369de;
+  color: #147dc5;
 }
 
 .indicators-text{

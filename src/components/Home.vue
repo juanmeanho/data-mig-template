@@ -49,7 +49,7 @@
               <div class="mt-12 mx-auto" style="width:80%;text-align:center;">
                 <v-tabs height="90px" v-model="tab" class="elevation-3 pt-8"  fixed-tabs>
                   <v-tabs-slider  color="#e56910"></v-tabs-slider>
-                    <v-tab   class="text-none mr-0 pr-0 pl-0 ml-n0 pl-0" active-class="#3369de" v-for="i in tabs" :key="i" 
+                    <v-tab   class="text-none mr-0 pr-0 pl-0 ml-n0 pl-0" active-class="#147dc5" v-for="i in tabs" :key="i" 
                     :href="`#tab-${i}`" >
                       <div class="mr-0 pr-0 ml-0" > Tab {{ i }} </div>
                     </v-tab>
@@ -100,10 +100,10 @@
                     :class="{'ml-7': $vuetify.breakpoint.smAndUp,
                             'ml-0': $vuetify.breakpoint.xsOnly ,'pl-12': $vuetify.breakpoint.smAndUp,
                             'pl-0': $vuetify.breakpoint.xsOnly}">
-                      <v-chip class="ml-4 pt-1"><span class="text-chips">FLUJOS</span></v-chip>
-                      <v-chip w class="ml-4 pt-1"><span class="text-chips">VISAS</span></v-chip>
-                      <v-chip class="ml-4 pt-1"><span class="text-chips">INDICADORES DE POLíTICA</span></v-chip>
-                      <v-chip class="ml-4 pt-1"><span class="text-chips">ACUERDOS INTERNACIONALES</span></v-chip>
+                      <v-chip color="rgba(20, 125, 197, 0.18)" class="ml-4 pt-1"><span class="text-chips">FLUJOS</span></v-chip>
+                      <v-chip color="rgba(20, 125, 197, 0.18)" class="ml-4 pt-1"><span class="text-chips">VISAS</span></v-chip>
+                      <v-chip color="rgba(20, 125, 197, 0.18)" class="ml-4 pt-1"><span class="text-chips">INDICADORES DE POLíTICA</span></v-chip>
+                      <v-chip color="rgba(20, 125, 197, 0.18)" class="ml-4 pt-1"><span class="text-chips">ACUERDOS INTERNACIONALES</span></v-chip>
                     </div>
                 <v-layout >
                   <v-flex xs10>
@@ -230,7 +230,7 @@ export default {
   font-stretch: normal;
   line-height: normal;
   letter-spacing: -0.19px;
-  color: #3369de;
+  color: #147dc5;
 }
 
 .address {
@@ -254,7 +254,7 @@ export default {
   font-stretch: normal;
   line-height: 1.64;
   letter-spacing: normal;
-  color: #0c1147;
+  color: #147dc5;
 } 
 #chip-usage-example .v-chip {
   margin: 8px;
@@ -270,7 +270,7 @@ export default {
   font-stretch: normal;
   line-height: normal;
   letter-spacing: -0.19px;
-  color: #3369de;
+  color: #147dc5;
 }
 .tabs-link {
   width: 539px;
@@ -288,7 +288,7 @@ export default {
 .dash-download {
   border-top: 0.5px solid;
   width: 170px;
-  color: #3369de;
+  color: #147dc5;
 }
 .download-link{
   font-family: 'Hind Guntur', sans-serif;  
@@ -311,7 +311,7 @@ export default {
   font-stretch: normal;
   line-height: 1.67;
   letter-spacing: normal;
-  color: #3369de;
+  color: #147dc5;
 }
 
 .mini-dataset {
@@ -324,7 +324,7 @@ export default {
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #3369de;
+  color: #147dc5;
 }
 
 .datasets-description {
@@ -449,7 +449,7 @@ export default {
   font-stretch: normal;
   line-height: 2.21;
   letter-spacing: normal;
-  color: #3369de;
+  color: #147dc5;
 }
 
 .flujos-dataset {
@@ -461,7 +461,7 @@ export default {
   font-stretch: normal;
   line-height: 1.29;
   letter-spacing: normal;
-  color: #3369de;
+  color: #147dc5;
 }
 
 .flujos-tb {
@@ -473,7 +473,7 @@ export default {
   font-stretch: normal;
   line-height: 1.29;
   letter-spacing: normal;
-  color: #3369de;
+  color: #147dc5;
 }
 
  .numbers-dataset{
@@ -486,7 +486,7 @@ export default {
   font-stretch: normal;
   line-height: 2.21;
   letter-spacing: normal;
-  color: #3369de;
+  color: #147dc5;
 }
 
 .rounded-card{

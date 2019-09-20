@@ -99,7 +99,7 @@
 
                   <v-btn icon class="mb-1 hidden-sm-and-down">
                     <span>
-                      <v-app-bar-nav-icon color="#3369de" @click.stop="switchToolbar = !switchToolbar"></v-app-bar-nav-icon>
+                      <v-app-bar-nav-icon color="#147dc5" @click.stop="switchToolbar = !switchToolbar"></v-app-bar-nav-icon>
                       </span>
                   </v-btn>
                 <div class="hidden-sm-and-down flex-grow-1"></div>
