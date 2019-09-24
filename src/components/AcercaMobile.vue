@@ -1,6 +1,6 @@
 <template>
-  <div class="hidden-md-and-up">
-    <v-layout justify-center :class="{'mb-12': $vuetify.breakpoint.xsOnly}">
+  <div class="hidden-md-and-up" id="about">
+    <v-layout justify-center :class="{'mb-12': $vuetify.breakpoint.xsOnly}" id="about">
       <v-flex
         xs10
         :class="{'mb-12': $vuetify.breakpoint.xsOnly, 'mb-n12': $vuetify.breakpoint.smOnly}"

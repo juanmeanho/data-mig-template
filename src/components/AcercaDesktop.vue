@@ -1,9 +1,9 @@
-<template>
+<template >
   <v-card class="mx-auto pl-12 mt-12 hidden-sm-and-down" flat>
     <v-container class="pa-2" fluid>
       <v-layout row wrap justify-center>
         <v-flex xs12 lg4 md12 class="ml-12">
-          <v-card flat class="mx-auto d-inline d-table-block ml-12 mt-19" width="352">
+          <v-card flat class="mx-auto d-inline d-table-block ml-12 mt-19" width="352" id="project">
             <v-card-text>
               <div class="mt-12 acerca-de" v-text="$ml.get('about')"></div>
               <div class="display-1 proyecto" v-text="$ml.get('project')">

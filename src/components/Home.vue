@@ -1,22 +1,19 @@
 <template>
   <v-card class="rounded-card" width="100%">
-    <v-img class="white--text" height="860px" src="@/assets/hero.svg">
+    <v-img class="white--text" height="860px" src="@/assets/hero.png">
       <!-- Toolbar -->
       <toolbar></toolbar>
 
-      <!-- Title Hero
-      <title-hero-mobile></title-hero-mobile>-->
-
       <!-- Hero cards -->
-      <hero-cards-mobile></hero-cards-mobile>
-      <hero-cards-desktop></hero-cards-desktop>
+      <sections-cards-mobile></sections-cards-mobile>
+      <sections-cards-desktop></sections-cards-desktop>
     </v-img>
     <!-- Acerca de -->
     <acerca-mobile></acerca-mobile>
     <acerca-desktop></acerca-desktop>
 
     <!-- Datasets -->
-    <v-img class="white--text mt-12" height="860px" src="@/assets/bg.svg">
+    <v-img class="white--text mt-12" height="860px" src="@/assets/bg.png">
       <!-- Datasets title-->
       <title-datasets-desktop></title-datasets-desktop>
       <title-datasets-mobile></title-datasets-mobile>
@@ -27,7 +24,7 @@
     </v-img>
 
     <!-- Card Tabs -->
-    <v-container class="pa-2 mx-auto mt-12" fluid>
+    <v-container class="pa-2 mx-auto mt-12" fluid id="references">
       <v-row>
         <v-col>
           <div style="width:100%;position:relative;">
@@ -59,7 +56,7 @@
                 :key="i"
                 :href="`#tab-${i}`"
               >
-                <div class="mr-0 pr-0 ml-0" v-text="$ml.get('tab')"></div>
+                <div class="mr-0 pr-0 ml-0" v-text="$ml.get('migration_tab')"></div>
               </v-tab>
               <v-tab-item v-for="i in tabs" :key="i" :value="'tab-' + i">
                 <v-card flat tile>
@@ -71,8 +68,12 @@
                           <v-layout>
                             <v-flex>
                               <div class="mt-4" style="text-align:left">
-                                <span class="tabs-country">{{ item.title_en }}</span>-
-                                <span class="tabs-link">{{ item.url_en }}</span>
+                                <span class="tabs-country">{{ item.institution.title_en }}</span> -
+                                <a
+                                  class="tabs-link"
+                                  target="_blank"
+                                  :href="item.url_en"
+                                >{{ item.title_en }}</a>
                               </div>
                             </v-flex>
                           </v-layout>
@@ -109,26 +110,23 @@
               <v-img class="white--text mt-12" width="101px" src="@/assets/group-2-copy.png"></v-img>
             </v-flex>
           </v-layout>
-          <div
+          <!-- <div
             class="ml-0 pl-0"
             id="chip-usage-example"
             :class="{'ml-7': $vuetify.breakpoint.smAndUp,
                             'ml-0': $vuetify.breakpoint.xsOnly ,'pl-12': $vuetify.breakpoint.smAndUp,
                             'pl-0': $vuetify.breakpoint.xsOnly}"
           >
-            <v-chip color="rgba(20, 125, 197, 0.18)" class="ml-4 pt-1">
-              <span class="text-chips" v-text="$ml.get('flow')"></span>
+            <v-chip
+              color="rgba(20, 125, 197, 0.18)"
+              class="ml-4 pt-1"
+              v-for="card in cards"
+              :key="card.title"
+              :cols="card.flex"
+            >
+              <span class="text-chips" v-text="$ml.get(card.title)"></span>
             </v-chip>
-            <v-chip color="rgba(20, 125, 197, 0.18)" class="ml-4 pt-1">
-              <span class="text-chips" v-text="$ml.get('visa')"></span>
-            </v-chip>
-            <v-chip color="rgba(20, 125, 197, 0.18)" class="ml-4 pt-1">
-              <span class="text-chips" v-text="$ml.get('policy')"></span>
-            </v-chip>
-            <v-chip color="rgba(20, 125, 197, 0.18)" class="ml-4 pt-1">
-              <span class="text-chips" v-text="$ml.get('agreement')"></span>
-            </v-chip>
-          </div>
+          </div>-->
           <v-layout>
             <v-flex xs10>
               <v-footer padless class="mb-12" color="#f2f2f2">
@@ -141,14 +139,16 @@
                             'ml-0': $vuetify.breakpoint.xsOnly ,'pl-12': $vuetify.breakpoint.smAndUp,
                             'pl-0': $vuetify.breakpoint.xsOnly}"
                   >
-                    <v-btn
-                      v-for="link in links"
-                      :key="link"
+                    <!--<v-btn
+                      v-for="section in sections"
+                      :key="section.link"
                       color="#CCC"
                       text
                       rounded
                       class="custom-transform-class text-none my-2 ml-2"
-                    >{{ link }}</v-btn>
+                      v-text="$ml.get(section.link)"
+                      @click="() => this.$vuetify.goTo(section.section)"
+                    ></v-btn>-->
                     <v-col
                       class="py-4 text-left ml-4 address"
                       cols="12"
@@ -164,12 +164,12 @@
                               'pl-6': $vuetify.breakpoint.mdAndUp,
                             'ml-n6': $vuetify.breakpoint.xsOnly}"
               >
-                <v-flex class="ml-12 pl-6">
+                <!-- <v-flex class="ml-12 pl-6">
                   <v-img src="@/assets/group-8.png" width="48px" height="48px"></v-img>
                 </v-flex>
                 <v-flex class="mr-12 ml-n4">
                   <v-img src="@/assets/group-7.png" class="ml-0 mr-0" width="48px" height="48px"></v-img>
-                </v-flex>
+                </v-flex>-->
               </v-layout>
             </v-flex>
           </v-layout>
@@ -184,10 +184,10 @@
 <script>
 import Toolbar from "./Toolbar";
 import axios from "axios";
-//import TitleHeroMobile from './TitleHeroMobile';
-//import TitleHeroDesktop from './TitleHeroDesktop';
-import HeroCardsMobile from "./HeroCardsMobile";
-import HeroCardsDesktop from "./HeroCardsDesktop";
+import DatamigLogoMobile from "./DatamigLogoMobile";
+import DatamigLogoDesktop from "./DatamigLogoDesktop";
+import SectionsCardsMobile from "./SectionsCardsMobile";
+import SectionsCardsDesktop from "./SectionsCardsDesktop";
 import AcercaDesktop from "./AcercaDesktop";
 import AcercaMobile from "./AcercaMobile";
 import TitleDatasetsDesktop from "./TitleDatasetsDesktop";
@@ -198,10 +198,10 @@ import DatasetsCardsDesktop from "./DatasetsCardsDesktop";
 export default {
   components: {
     Toolbar,
-    //TitleHeroMobile,
-    //TitleHeroDesktop,
-    HeroCardsMobile,
-    HeroCardsDesktop,
+    DatamigLogoMobile,
+    DatamigLogoDesktop,
+    SectionsCardsMobile,
+    SectionsCardsDesktop,
     AcercaDesktop,
     AcercaMobile,
     TitleDatasetsDesktop,
@@ -210,15 +210,43 @@ export default {
     DatasetsCardsDesktop
   },
   data: () => ({
+    cards: [
+      {
+        title: "flow",
+        text: "flow_data",
+        flex: 3,
+        number: "01",
+        class: "flujos_hover"
+      },
+      {
+        title: "policy",
+        text: "policiy_data",
+        flex: 3,
+        number: "03",
+        class: "indicadores_hover"
+      },
+      { title: "visa", text: "", flex: 3, number: "02", class: "visas_hover" },
+      {
+        title: "agreement",
+        text: "",
+        flex: 3,
+        number: "04",
+        class: "acuerdos_hover"
+      }
+    ],
     show: false,
     tab: null,
     tabs: 1,
-    links: ["DATAMIG", "El Proyecto", "Datasets", "Referencias Externas"],
+    sections: [
+      { link: "datamig", section: "http://iadb.org" },
+      { link: "project", section: "#project" },
+      { link: "datasets", section: "#datasets" },
+      { link: "references", section: "#references" }
+    ],
     resources: null
   }),
   methods: {
     async getResource() {
-      console.log("entra");
       let resource = await axios.get("//backend.datamig.org/en/api/resource");
       this.resources = await resource.data.data;
     }
@@ -228,7 +256,6 @@ export default {
   }
 };
 </script>
-
 
 <style>
 .tab-active {
@@ -293,7 +320,7 @@ export default {
   font-stretch: normal;
   line-height: normal;
   letter-spacing: -0.19px;
-  color: #e56910;
+  color: #e56910 !important;
 }
 
 .dash-download {
@@ -351,7 +378,6 @@ export default {
 }
 
 .datasets {
-  width: 230px;
   height: 105px;
   font-family: "Hind Guntur", sans-serif;
   font-size: 56px;

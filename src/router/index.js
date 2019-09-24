@@ -12,6 +12,10 @@ export default new Router({
     {
       path: "/",
       component: Home,
+      title: "DataMIG",
+      meta: {
+        title: "DataMIG"
+      },
       name: "Home"
     },
     {

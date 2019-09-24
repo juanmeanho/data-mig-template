@@ -1,8 +1,10 @@
 <template>
   <div>
     <v-navigation-drawer v-model="drawer" app clipped>
-      <v-card class="mx-auto" color="#ffffff" flat max-width="250">
-        <v-card-title class="indicators mb-8" v-if="references">References</v-card-title> 
+      <div class="card-title mt-1 ml-4" style="height:auto">Migrant Stock</div>
+      <div class="card-title mt-1 ml-4" style="height:auto">{{country_selected}}</div>
+      <v-card class="mx-auto mb-2" color="#ffffff" flat max-width="250">
+        <v-card-title class="indicators mb-10" v-if="references" v-text="$ml.get('references_viz')"></v-card-title>
         <v-list-item v-for="(item, i) in references" :key="i" :label="item">
           <v-list-item-icon class="mt-n2">
             <v-icon :color="references_color[i]">mdi-brightness-1</v-icon>
@@ -11,26 +13,31 @@
         </v-list-item>
       </v-card>
 
-      <v-card class="mx-auto" color="#ffffff" flat max-width="250">
-        <v-card-title class="indicators mt-n6">Description</v-card-title>
-        <v-card-title class="card-title mt-1">{{title}}</v-card-title>
-        <v-card-text class="card-content mt-3"  v-text="$ml.get('flow_viz')"></v-card-text>
+      <v-card class="mx-auto mt-0" color="#ffffff" flat max-width="250">
+        <div class="indicators ml-4" v-text="$ml.get('description_viz')"></div>
+        <div class="card-title mt-1 ml-4" style="height:auto">{{title}}</div>
+        <div class="card-content mt-3 ml-4" style="height:auto" v-text="$ml.get('flow_viz')"></div>
       </v-card>
 
       <div style="width:230px;">
-        <!-- <v-slider
-          v-model="ex3.val"
-          :thumb-color="ex3.color"
-          thumb-label="always"
-          min="2000"
-          max="2019"
-        ></v-slider>
-        -->
-        <div class="text-center">
-          <v-btn class="ml-1" width="215px" tile color="#f05a23" dark @click="clean()">Reset</v-btn>
-        </div>
-        <div class="mt-12 ml-4">
-          <v-img src="@/assets/bid.png" width="85px" height="auto"></v-img>
+        <div>
+          <v-slider
+            v-model="ex3.val"
+            :tick-labels="years"
+            value="years"
+            min="1"
+            :max="maxYears"
+            ticks="always"
+            @change="changeYear"
+            v-if="years"
+          ></v-slider>
+
+          <div class="text-center" v-if="years">
+            <v-btn class="ml-1" width="215px" tile color="#f05a23" dark @click="clean()">Reset</v-btn>
+          </div>
+          <div class="mt-12 mr-12 pr-12">
+            <!-- <v-img src="@/assets/bid.png" class="mr-12 ml-n12" width="85px" height="auto"></v-img> -->
+          </div>
         </div>
       </div>
     </v-navigation-drawer>
@@ -54,34 +61,20 @@
         ></div>
       </div>
       <!--<v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>-->
-      <div class="visa-de-turista">
-        <select @change="onChange($event)">
-          <optgroup
-            v-for="indicator in indicators"
-            v-bind:label="indicator.key"
-            v-bind:key="indicator.key"
-          >
-            <option
-              v-for="option in indicator.subjects"
-              v-bind:value="option.values[0].subject_id"
-              :data-description="option.values[0].subject_description"
-              v-bind:label="option.key"
-              v-bind:key="option.key"
-            ></option>
-          </optgroup>
-        </select>
-      </div>
+      <div class="visa-de-turista">Migrant Stock</div>
 
-      <div class="flex-grow-1"></div>
-
-      <div class="end-bar hidden-sm-and-down">
-        <v-btn style="color:#3b4cc3" text>
-          <button v-for="lang in $ml.list" :key="lang" @click="$ml.change(lang)" v-text="lang" />
-        </v-btn>
-        <v-btn icon>
-          <v-app-bar-nav-icon style="color:#3b4cc3"></v-app-bar-nav-icon>
-        </v-btn>
-      </div>
+      <v-layout class="end-bar hidden-sm-and-down pl-n8">
+        <v-flex>
+          <v-btn style="color:#3b4cc3" class="pt-3" text>
+            <button v-for="lang in $ml.list" :key="lang" @click="$ml.change(lang)" v-text="lang" />
+          </v-btn>
+        </v-flex>
+        <!--<v-flex>
+           <v-btn icon class="pt-0">
+            <v-app-bar-nav-icon style="color:#3b4cc3"></v-app-bar-nav-icon>
+          </v-btn> 
+        </v-flex>-->
+      </v-layout>
     </v-app-bar>
 
     <v-content>
@@ -15059,6 +15052,11 @@ export default {
     //Toolbar
   },
   data: () => ({
+    country_selected:null,
+    widthContainer:null,
+    heightContainer:null,
+    maxYears: null,
+    years: null,
     modalTitle: null,
     modalBody: null,
     dialog: false,
@@ -15085,9 +15083,10 @@ export default {
     ref: null,
     description: null,
     colorScale: null,
-    globalFlujosData:null,
-    globalYear:null,
-    globalISO:null,
+    globalFlujosData: null,
+    globalYear: null,
+    globalISO: null,
+    flujos_data:null,
     colors: [
       "#0c9ed9",
       "#fbb034",
@@ -15101,15 +15100,29 @@ export default {
       "#c7e5b4"
     ]
   }),
-  computed: {},
+  computed: {
+    
+  },
   methods: {
     clean() {
-    d3.selectAll(".legendLinear").remove();
-    d3.select(".buttonClean").remove();
-    this.layer_partner.classed("active", false);
-    //drawSlider(globalFlujosData, globalYear, 2);
-    this.addFlowCountries(this.globalFlujosData, this.globalYear);
-  },
+      d3.selectAll(".legendLinear").remove();
+      d3.select(".buttonClean").remove();
+      this.layer_partner.classed("active", false);
+      this.country_selected = null;
+      this.references = null;
+      this.drawSlider(this.globalFlujosData, this.globalYear, 2);
+      this.addFlowCountries(this.globalFlujosData, this.globalYear);
+    },
+    changeYear(value) {                  
+      if (d3.select(".layer_partner").classed("active")) {
+        var filtered = this.flujos_data.filter(d => {
+          return d.iso_destination == this.globalISO;
+        });
+        this.drawPartners(filtered, this.years[value-1]);
+      } else {
+        this.addFlowCountries(this.flujos_data, this.years[value-1]);
+      }
+    },
     /*onChange(event) {
       var label =
         event.target.options[event.target.options.selectedIndex].label;
@@ -15130,30 +15143,30 @@ export default {
       this.zoom = d3
         .zoom()
         .scaleExtent([1, 40])
-        .translateExtent([[0, 0], [1000, 1000]])
-        .extent([[0, 0], [1000, 1000]])
+        .translateExtent([[0, 0], [this.widthContainer, this.heightContainer]])
+        .extent([[0, 0], [this.widthContainer, this.heightContainer]])
         .on("zoom", this.zoomed);
       this.projection = d3
         .geoMercator()
-        .scale(1000 / 2 / Math.PI)
-        .translate([1000 / 2, 1000 / 2]);
+        .scale(this.widthContainer / 2 / Math.PI)
+        .translate([this.widthContainer / 2.7,  this.heightContainer / 2]);
       this.colorScale = d3.scaleOrdinal(this.colors);
     },
     async getFlowCountries(id_visa) {
       //var files = [conf.data];
       var url = "//flujos.datamig.org/node/data?id_visa=" + id_visa;
       var values = await axios.get(url);
-      let flujos_data = await values.data;
+      this.flujos_data = await values.data;
 
       let years = d3
-        .map(flujos_data, d => {
+        .map(this.flujos_data, d => {
           return d.year;
         })
         .keys()
         .sort(d3.descending);
 
       /* Obtiene las coordenadas de cada uno de los puntos de paises */
-      flujos_data.forEach(e => {
+      this.flujos_data.forEach(e => {
         let country_origin = countries.filter(d => {
           return d.ISO3166A3 == e.iso_origin.trim();
         })[0];
@@ -15192,9 +15205,38 @@ export default {
       d3.selectAll(".circles-partners").remove();
       d3.selectAll(".text-partners").remove();
 
-      //drawSlider(flujos_data, years[0]);
-      this.addFlowCountries(flujos_data, years[0]);
+      this.drawSlider(this.flujos_data, years[0]);
+      this.addFlowCountries(this.flujos_data, years[0]);
       $("#page-loader").fadeOut(500);
+    },
+    drawSlider(data, year, step = 1) {
+      d3.select(".slider").remove();
+
+      let years = d3
+        .map(data, d => {
+          return d.year;
+        })
+        .keys();
+
+      this.years = years.sort(d3.descending);
+      this.maxYears = years.length;      
+
+      var range = [];
+      var offset = Math.round(600 / years.length, 0);
+
+      years.forEach((d, i) => {
+        range.push(i * offset);
+      });
+
+      if (d3.select(".layer_partner").classed("active")) {
+        var filtered = this.flujos_data.filter(d => {
+          return d.iso_destination == this.globalISO;
+        });
+
+        this.drawPartners(filtered, timeInvert(minValue));
+      } else {
+        //this.addFlowCountries(this.flujos_data, +year);
+      }
     },
     addFlowCountries(flujos_data, year) {
       $("#page-loader").fadeIn(500);
@@ -15209,7 +15251,7 @@ export default {
       d3.selectAll(".text-partners").remove();
 
       //filter by year
-      var filtered = flujos_data.filter(d => {
+      var filtered = this.flujos_data.filter(d => {
         return +d.year == +year;
       });
 
@@ -15229,18 +15271,19 @@ export default {
           this.globalYear = year;
           this.globalFlujosData = flujos_data;
 
-          if (!d3.select(".layer_partner").classed("active")) {
+          this.country_selected = d.properties.name;
+
+          if (!d3.select(".layer_partner").classed("active")) {            
             d3.selectAll(".country-path").classed("lightgrey", true);
             d3.selectAll("." + iso).classed("lightgrey", false);
             d3.selectAll("." + iso).classed("country-selected", false);
 
-            var flujos_data_filtered_destination = flujos_data.filter(d => {
+            var flujos_data_filtered_destination = this.flujos_data.filter(d => {
               return d.iso_destination == iso;
             });
-
-            //drawSlider(flujos_data_filtered_destination, year, 2);
+                      
+            this.drawSlider(flujos_data_filtered_destination, year, 2);
             this.drawPartners(flujos_data_filtered_destination, year);            
-            d3.event.stopPropagation();
           }
         });
       });
@@ -15253,27 +15296,23 @@ export default {
       });
 
       var numbers = filtered.map(d => d.number);
-
-    console.log(numbers)
+      
       var scale = d3
         .scaleQuantile()
         .domain(numbers)
         .range(["#FFEBEE", "#E57373", "#F44336", "#B71C1C"]);
 
-      this.layer_extra
-        .append("g")
-        .attr("class", "legendLinear")
-        .attr(
-          "transform",
-          "translate(" +
-            $("body").width() * 0.1 +
-            "," +
-            $("body").height() / 1.5 +
-            ")"
-        );
-    
-    this.references = scale.quantiles();
-    this.references_color = scale.range();
+
+      var _quantiles = [];
+      var quantiles = scale.quantiles()
+      
+      _quantiles.push("0 - " + quantiles[0])      
+      _quantiles.push((quantiles[0]+1) +  " - " + quantiles[1])      
+      _quantiles.push((quantiles[1]+1) +  " - " + quantiles[2])            
+         
+
+      this.references = _quantiles;
+      this.references_color = scale.range();
 
       this.layer_partner.classed("active", true);
 
@@ -15285,8 +15324,7 @@ export default {
             enter
               .append("circle")
               .classed("circles-partners", true)
-              .attr("r", 5)
-              //.attr("height", 15)
+              .attr("r", 5)              
               .attr("cx", d => {
                 var projection_x = this.projection([
                   d.longitude_origin,
@@ -15310,14 +15348,14 @@ export default {
               .classed("circles-partners", true)
               //.attr("height", 15)
               .attr("cx", d => {
-                projection_x = projection([
+                var projection_x = this.projection([
                   d.longitude_origin,
                   d.latitude_origin
                 ])[0];
                 if (projection_x) return projection_x;
               })
               .attr("cy", d => {
-                projection_y = projection([
+                var projection_y = this.projection([
                   d.longitude_origin,
                   d.latitude_origin
                 ])[1];
@@ -15366,10 +15404,13 @@ export default {
         bottom: 0,
         left: 0
       };
-      this.width = 1000 - this.margin.left - this.margin.right;
-      this.height = 1000 - this.margin.top - this.margin.bottom;
+      this.width =  this.widthContainer - this.margin.left - this.margin.right;
+      this.height =  this.heightContainer - this.margin.top - this.margin.bottom;
       this.path = d3.geoPath().projection(this.projection);
-
+      
+      console.log(this.widthContainer)
+      console.log(this.heightContainer)
+      
       var svg = d3
         .select("#mapa")
         .append("svg")
@@ -15523,7 +15564,7 @@ export default {
       };
       tooltip.move();
       return tooltip;
-    },   
+    },
     tooltipMarker(title, description, links, observations, year) {
       this.dataTooltip["title"] = title;
       if (description != null && description != "") {
@@ -15542,11 +15583,13 @@ export default {
     },
     zoomed() {
       this.layer_flow.attr("transform", d3.event.transform);
-      this.layer_flow
-        .selectAll("circle")
-        .attr("r", 7 / d3.event.transform.k)
-        //.attr("height", 15 / d3.event.transform.k)
-        .style("stroke-width", 1.5 / d3.event.transform.k);
+      this.layer_partner.attr("transform", d3.event.transform);
+
+    this.layer_partner
+      .selectAll("circle")
+      .attr("r", 5 / d3.event.transform.k)  
+      .style("stroke-width", 1.5 / d3.event.transform.k);
+
     },
     mapOnClick(map, layer_flow) {
       if ($("select").val() == 99) {
@@ -15555,8 +15598,7 @@ export default {
         layer_flow.classed("invisible", false);
       }
     },
-    clicked(k, x, z) {
-      console.log(this.width);
+    clicked(k, x, z) {      
       var x = this.width / x;
       var y = this.height / z;
       var k = k;
@@ -15699,6 +15741,8 @@ export default {
     this.text_id = this.$route.params.text_id;
   },
   mounted() {
+    this.widthContainer = parseInt(d3.select('.v-content__wrap').style('width'));
+    this.heightContainer = this.widthContainer/2;
     this.createMap();
   },
   output() {}
@@ -15717,7 +15761,7 @@ export default {
   background-color: rgba(150, 150, 150, 0.07);
   height: inherit;
   padding: 25px;
-  width: 193px;
+  max-width: 193px;
 }
 
 .item-bar {
@@ -15728,6 +15772,7 @@ export default {
 }
 
 .visa-de-turista {
+  width: 55%;
   font-family: "Hind Guntur", sans-serif;
   font-size: 24px;
   font-weight: 300;
@@ -15872,5 +15917,12 @@ path {
   background-color: #3c78fa;
   color: white;
   font-weight: bold;
+}
+.circles-partners {
+  stroke-width: 1.5px;
+  stroke: white;
+}
+.lightgrey {
+  fill: lightgrey !important;
 }
 </style>

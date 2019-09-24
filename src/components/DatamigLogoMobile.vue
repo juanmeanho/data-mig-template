@@ -20,7 +20,9 @@
         <v-layout justify-center>
           <v-card flat color="transparent" width="70%" class="rounded-card mt-12 mb-12">
             <v-card-title class="text-hero-right" :class="{'text-hero-xs': $vuetify.breakpoint.xs}">
-              <v-flex mt-12 v-text="$ml.get('datamig_desc')"></v-flex>
+              <v-flex mt-12>
+                <v-text-field v-text="$ml.get('datamig_desc')"></v-text-field>
+              </v-flex>
             </v-card-title>
           </v-card>
         </v-layout>

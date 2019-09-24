@@ -21,6 +21,11 @@
             >
               <div :class="card.class" style="height:100%;">
                 <v-card-text class="numbers" v-text="card.number"></v-card-text>
+                <v-card-text
+                  class="numbers"
+                  v-if="card.construction"
+                  v-text="$ml.get('construction')"
+                ></v-card-text>
                 <v-card-text class="flujos" v-text="$ml.get(card.title)"></v-card-text>
               </div>
             </v-card>
@@ -42,7 +47,8 @@ export default {
         to: "Flow",
         flex: 3,
         number: "01",
-        class: "flujos_hover"
+        class: "flujos_hover",
+        construction: false
       },
       {
         title: "policy",
@@ -50,7 +56,8 @@ export default {
         to: "Policy",
         flex: 3,
         number: "02",
-        class: "indicadores_hover"
+        class: "indicadores_hover",
+        construction: false
       },
       {
         title: "visa",
@@ -58,7 +65,8 @@ export default {
         text: "empty",
         flex: 3,
         number: "02",
-        class: "visas_hover"
+        class: "visas_hover",
+        construction: true
       },
       {
         title: "agreement",
@@ -66,7 +74,8 @@ export default {
         text: "empty",
         flex: 3,
         number: "03",
-        class: "acuerdos_hover"
+        class: "acuerdos_hover",
+        construction: true
       }
     ],
     borderLeft: "borders-left",

@@ -1,8 +1,9 @@
 <template>
   <div>
-    <v-navigation-drawer v-model="drawer" app clipped>
-      <v-card class="mx-auto" color="#ffffff" flat max-width="250">
-        <v-card-title class="indicators mb-8">Indicators</v-card-title>
+    <v-navigation-drawer v-model="drawer" app clipped>      
+      <div class="card-title mt-1 ml-4" style="height:auto">{{title}}</div>
+      <v-card class="mx-auto mb-2" color="#ffffff" flat max-width="250">
+        <v-card-title class="indicators mb-10" v-if="references" v-text="$ml.get('references_viz')"></v-card-title>
         <v-list-item v-for="(item, i) in references" :key="i" :label="item">
           <v-list-item-icon class="mt-n2">
             <v-icon :color="references_color[i]">mdi-brightness-1</v-icon>
@@ -11,13 +12,13 @@
         </v-list-item>
       </v-card>
 
-      <v-card class="mx-auto" color="#ffffff" flat max-width="250">
-        <v-card-title class="indicators mt-n6">Description</v-card-title>
-        <v-card-title class="card-title mt-1">{{title}}</v-card-title>
-        <v-card-text class="card-content mt-3">{{description}}</v-card-text>
+     <v-card class="mx-auto mt-0" color="#ffffff" flat max-width="250">
+        <div class="indicators ml-4" v-if="description" v-text="$ml.get('description_viz')"></div>
+        
+        <div class="card-content mt-3 ml-4" style="height:auto">{{description}}</div>
       </v-card>
-
-      <div style="width:230px;">
+      <v-footer color="transparent" class="justify-center ml-n12 pl-n12" inset app>
+      <div v-if="references">
         <!-- <v-slider
           v-model="ex3.val"
           :thumb-color="ex3.color"
@@ -28,10 +29,11 @@
         <div class="text-center">
           <v-btn class="ml-1" width="215px" tile color="#f05a23" dark>Reset</v-btn>
         </div>-->
-        <div class="mt-12 ml-4">
-          <v-img src="@/assets/bid.png" width="85px" height="auto"></v-img>
+        <div class="mt-12 mr-12 pr-12">
+          <v-img src="@/assets/bid.png" class="mr-12 ml-n12" width="85px" height="auto"></v-img>
         </div>
-      </div>
+      </div>          
+    </v-footer>
     </v-navigation-drawer>
 
     <v-app-bar app clipped-left height="104px">
@@ -52,8 +54,8 @@
         ></div>
       </div>
       <!--<v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>-->
-      <div class="visa-de-turista">
-        <select @change="onChange($event)">
+      <div class="visa-de-turista ml-n6">
+        <select @change="onChange($event)" style="width:100%">
           <optgroup
             v-for="indicator in indicators"
             v-bind:label="indicator.key"
@@ -69,17 +71,22 @@
           </optgroup>
         </select>
       </div>
+      <v-btn icon>
+          <v-icon color="#147dc5">mdi-chevron-down</v-icon>
+      </v-btn>
 
-      <div class="flex-grow-1"></div>
-
-      <div class="end-bar hidden-sm-and-down">
-        <v-btn style="color:#3b4cc3" text>
-          <button v-for="lang in $ml.list" :key="lang" @click="$ml.change(lang)" v-text="lang" />
-        </v-btn>
-        <v-btn icon>
-          <v-app-bar-nav-icon style="color:#3b4cc3"></v-app-bar-nav-icon>
-        </v-btn>
-      </div>
+      <v-layout class="end-bar hidden-sm-and-down pl-n8">
+        <v-flex >
+          <v-btn style="color:#3b4cc3" class="pt-3" text >
+            <button v-for="lang in $ml.list" :key="lang" @click="$ml.change(lang)" v-text="lang" />
+          </v-btn>
+        </v-flex>
+        <!--<v-flex>
+           <v-btn icon class="pt-0">
+            <v-app-bar-nav-icon style="color:#3b4cc3"></v-app-bar-nav-icon>
+          </v-btn> 
+        </v-flex>-->
+      </v-layout>
     </v-app-bar>
 
     <v-content>
@@ -15057,6 +15064,8 @@ export default {
     //Toolbar
   },
   data: () => ({
+    widthContainer:null,
+    heightContainer:null,
     modalTitle:null,
     modalBody:null,
     dialog: false,
@@ -15100,7 +15109,18 @@ export default {
     onChange(event) {
       var label =
         event.target.options[event.target.options.selectedIndex].label;
-      this.drawMarkers(this.datum, event.target.value, label);
+
+      var value =
+        event.target.options[event.target.options.selectedIndex].value;
+      
+      if (value == 99) {
+        this.drawGeneralMarkers(this.datum);
+      } else {
+        this.drawMarkers(this.datum, event.target.value, label);        
+      }          
+      
+      this.references = null;       
+
       this.title =
         event.target.options[event.target.options.selectedIndex].label;
       this.description =
@@ -15117,14 +15137,13 @@ export default {
       this.zoom = d3
         .zoom()
         .scaleExtent([1, 40])
-        .translateExtent([[0, 0], [1000, 1000]])
-        .extent([[0, 0], [1000, 1000]])
+        .translateExtent([[0, 0], [this.widthContainer, this.heightContainer]])
+        .extent([[0, 0], [this.widthContainer, this.heightContainer]])
         .on("zoom", this.zoomed);
       this.projection = d3
-      .geoMercator()
-        /*.geoEquirectangular()*/
-        .scale(1000 / 2 / Math.PI)
-        .translate([1000 / 2, 1000 / 2.5]);
+        .geoMercator()          
+        .scale(this.widthContainer / 3.5/ Math.PI)
+        .translate([this.widthContainer / 2.5, this.heightContainer / 2.5]);
       this.colorScale = d3.scaleOrdinal(this.colors);
     },
     async getIndicators() {
@@ -15135,12 +15154,38 @@ export default {
       let world_country = await axios.get(
         "//datamig.org/menuv2/world_countries.json"
       );*/
+
+      
       var grouped_by_indicator = await d3
         .nest()
         .key(function(d) {
           return d.section_name.trim();
         })
         .entries(data.data);
+
+      var key = 'All';
+      grouped_by_indicator.unshift({
+      key: key,
+      values: [
+        {
+          DescripcionING: "All indicators",
+          Description: "Todos los indicadores",
+          country_name: "",
+          description: "",
+          iso3: "",
+          latitude: -10,
+          links: null,
+          longitude: -76,
+          observations: "",
+          section_name: "",
+          subject_description: "All indicators",
+          subject_id: 99,
+          subject_name: key,
+          type: ""
+        }
+      ]
+    });
+
       this.datum = data.data;
       grouped_by_indicator.forEach(d => {
         d.subjects = d3
@@ -15162,9 +15207,10 @@ export default {
         bottom: 0,
         left: 0
       };
-      this.width = 1000 - this.margin.left - this.margin.right;
-      this.height = 1000 - this.margin.top - this.margin.bottom;
+      this.width = this.widthContainer - this.margin.left - this.margin.right;
+      this.height = this.heightContainer - this.margin.top - this.margin.bottom;
       this.path = d3.geoPath().projection(this.projection);
+      
       var g_policies = d3
         .select("#mapa")
         .append("svg")
@@ -15642,6 +15688,8 @@ export default {
         .attr("r", 7 / d3.event.transform.k)
         //.attr("height", 15 / d3.event.transform.k)
         .style("stroke-width", 1.5 / d3.event.transform.k);
+
+        
     },
     drawLegend(linear, title) {
       d3.select(".viz-title").text(title);
@@ -15675,8 +15723,7 @@ export default {
         layer_policies.classed("invisible", false);
       }
     },
-    clicked(k, x, z) {
-      console.log(this.width);
+    clicked(k, x, z) {      
       var x = this.width / x;
       var y = this.height / z;
       var k = k;
@@ -15820,6 +15867,8 @@ export default {
     this.text_id = this.$route.params.text_id;
   },
   mounted() {
+    this.widthContainer = parseInt(d3.select('.v-content__wrap').style('width'));
+    this.heightContainer = this.widthContainer/2;
     this.createMap();
   },
   output() {}
@@ -15827,6 +15876,7 @@ export default {
 </script>
     
 <style>
+
 .logo {
   background-color: rgba(150, 150, 150, 0.07);
   height: inherit;
@@ -15838,7 +15888,7 @@ export default {
   background-color: rgba(150, 150, 150, 0.07);
   height: inherit;
   padding: 25px;
-  width: 193px;
+  max-width: 193px;
 }
 
 .item-bar {
@@ -15849,6 +15899,7 @@ export default {
 }
 
 .visa-de-turista {
+  width: 55%;
   font-family: "Hind Guntur", sans-serif;
   font-size: 24px;
   font-weight: 300;

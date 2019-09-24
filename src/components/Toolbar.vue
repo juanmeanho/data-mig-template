@@ -17,25 +17,34 @@
               class="hidden-sm-and-down custom-transform-class text-none"
               text
               v-text="$ml.get('initiative')"
+              href="//www.iadb.org"
+              target="_blank"
             ></v-btn>
             <div class="hidden-sm-and-down flex-grow-1"></div>
             <v-btn
               class="hidden-sm-and-down custom-transform-class text-none grey--text text--lighten-2"
               text
               v-text="$ml.get('project')"
+              @click="() => this.$vuetify.goTo('#project')"
             ></v-btn>
             <div class="hidden-sm-and-down flex-grow-1"></div>
             <v-btn
               class="hidden-sm-and-down custom-transform-class text-none grey--text text--lighten-2"
               text
               v-text="$ml.get('datasets')"
+              @click="() => this.$vuetify.goTo('#datasets')"
             ></v-btn>
             <div class="hidden-sm-and-down flex-grow-1"></div>
             <v-btn
               class="hidden-sm-and-down custom-transform-class text-none grey--text text--lighten-2"
               text
               v-text="$ml.get('references')"
+              @click="() => this.$vuetify.goTo('#references')"
             ></v-btn>
+            <div class="hidden-sm-and-down flex-grow-1"></div>
+            <div class="hidden-sm-and-down flex-grow-1"></div>
+            <div class="hidden-sm-and-down flex-grow-1"></div>
+            <div class="hidden-sm-and-down flex-grow-1"></div>
             <div class="hidden-sm-and-down flex-grow-1"></div>
             <v-btn class="hidden-sm-and-down grey--text text--lighten-2" text>
               <button v-for="lang in $ml.list" :key="lang" @click="$ml.change(lang)" v-text="lang" />
@@ -95,7 +104,7 @@
             <div class="hidden-sm-and-down flex-grow-1"></div>
             <div class="hidden-sm-and-down flex-grow-1"></div>
 
-            <v-btn class="hidden-sm-and-down mt-2" text>
+            <v-btn class="hidden-sm-and-down mt-0 items-toolbar" text>
               <button v-for="lang in $ml.list" :key="lang" @click="$ml.change(lang)" v-text="lang" />
             </v-btn>
             <div class="hidden-sm-and-down flex-grow-1"></div>
@@ -140,7 +149,7 @@
                     <div>
                       <v-card
                         style="z-index: 9999"
-                        :to="{ name: card.to, params: { nu_id: card.text, text_id: card.title } }"
+                        :to="{ name: 'Dashboard', params: { nu_id: card.text, text_id: card.title } }"
                         target="_blank"
                         color="white"
                         flat
@@ -150,8 +159,8 @@
                       >
                         <div class="hover-tb pt-4 pl-2" style="height:100%;">
                           <div class="hover-tb">
-                            <v-card-text class="numbers-tb" v-text="card.text"></v-card-text>
-                            <v-card-text class="flujos-tb" v-text="card.title"></v-card-text>
+                            <v-card-text class="numbers-tb" v-text="card.number"></v-card-text>
+                            <v-card-text class="flujos-tb" v-text="$ml.get(card.title)"></v-card-text>
                           </div>
                         </div>
                       </v-card>
@@ -172,7 +181,8 @@
         fluid
         :class="{'mt-n12': $vuetify.breakpoint.mdAndUp}"
       >
-        <title-hero-mobile class="mt-n8"></title-hero-mobile>
+        <datamig-logo-desktop class="mt-n8"></datamig-logo-desktop>
+        <datamig-logo-mobile class="mt-n8"></datamig-logo-mobile>
       </v-container>
     </template>
     <template xs12>
@@ -182,48 +192,67 @@
         fluid
         :class="{'mt-4': $vuetify.breakpoint.mdAndUp}"
       >
-        <title-hero-mobile class="mt-2"></title-hero-mobile>
+        <datamig-logo-desktop class="mt-n8"></datamig-logo-desktop>
+        <datamig-logo-mobile class="mt-2"></datamig-logo-mobile>
       </v-container>
     </template>
   </v-layout>
 </template>
 
 <script>
-import TitleHeroMobile from "./TitleHeroMobile";
+import DatamigLogoMobile from "./DatamigLogoMobile";
 
 export default {
   components: {
-    TitleHeroMobile
+    DatamigLogoMobile
   },
   data: () => ({
     lang: ["ES", "EN"],
     switchToolbar: true,
     classHover: "numbers-tb",
-    resources: null,
-    cards: [
-      { title: "flow", text: "flow_data", flex: 3, number: "01" },
-      { title: "policy", text: "policiy_data", flex: 3, number: "02" },
-      { title: "visa", text: "", flex: 3, number: "03" },
-      { title: "agreement", text: "", flex: 3, number: "04" }
-    ],
     menu: [
       { icon: "home", title: "Iniciativa de Migraciones" },
       { icon: "info", title: "El Proyecto" },
       { icon: "warning", title: "Datasets" },
       { icon: "warning", title: "Referencias Externas" }
+    ],
+    cards: [
+      {
+        title: "flow",
+        text: "flow_data",
+        flex: 3,
+        number: "01",
+        class: "flujos_hover"
+      },
+      { title: "visa", text: "", flex: 3, number: "02", class: "visas_hover" },
+      {
+        title: "policy",
+        text: "policiy_data",
+        flex: 3,
+        number: "03",
+        class: "indicadores_hover"
+      },
+      {
+        title: "agreement",
+        text: "",
+        flex: 3,
+        number: "04",
+        class: "acuerdos_hover"
+      }
     ]
-  }),
-  methods: {
-    async getResource() {
-      let resources = await axios.get(
-        "http://backend.datamig.org/en/api/resource"
-      );
-    }
-  }
+  })
 };
 </script>
 
 <style>
+.flex {
+  word-break: normal !important;
+  text-align: justify;
+}
+
+.v-input {
+  text-align: center;
+}
 .el-proyecto {
   width: 85px;
   height: 31px;

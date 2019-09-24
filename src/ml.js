@@ -9,9 +9,9 @@ export default new MLCreate({
   languages: [
     new MLanguage("ENG").create({
       flow: "Statistics",
-      visa: "Visas (Under Construction)",
+      visa: "Visas",
       policy: "Policy Indicators",
-      agreement: "International Agreements (Under Construction)",
+      agreement: "International Agreements",
       datamig: "DataMIG",
       datamig_desc:
         "The IDB Migration Initiative collects data on migration and migration policy in order to support analysis and to inform policy and operations. This portal serves to make that data available to the broader community.",
@@ -33,14 +33,18 @@ export default new MLCreate({
         "The data underlying the Migration Statistics is included in the data file. ",
       tab: "National Migration Website",
       empty: "",
-      flow_viz: "Number of Migrants Residing in LAC"
+      flow_viz: "Number of Migrants Residing in LAC",
+      construction: "Under Construction",
+      migration_tab: "Links",
+      references_viz: "References",
+      description_viz: "Description"
     }),
 
     new MLanguage("-ESP").create({
       flow: "Estadisticas",
-      visa: "Visas (Bajo Construcción)",
+      visa: "Visas",
       policy: "Indicadores de Política",
-      agreement: "Acuerdos Internacionales (Bajo Construcción)",
+      agreement: "Acuerdos Internacionales",
       datamig: "DataMIG",
       datamig_desc:
         "La Iniciativa de Migraciones del BID recopila data sobre migraciones y política migratoria para apoyar análisis y para informar la política y las operaciones. Este portal sirve para hacer disponible esa data a la comunidad amplia.",
@@ -61,7 +65,11 @@ export default new MLCreate({
         "Los datos subyacentes de las estadísticas Migratorias se incluyen en el archivo de datos.",
       tab: "Sitio Web Nacional de Migración",
       empty: "",
-      flow_viz: "Número de Migrantes Residentes en LAC"
+      flow_viz: "Número de Migrantes Residentes en LAC",
+      construction: "Bajo Construcción",
+      migration_tab: "Links",
+      references_viz: "Referencias",
+      description_viz: "Descripción"
     })
   ]
 });
