@@ -50,7 +50,7 @@
         >{{ nu_id }}</div> -->
         <div
           class="flujos"
-          :class="{'mt-n2': $vuetify.breakpoint.xsOnly, 'mt-n1': $vuetify.breakpoint.smAndUp}" v-text="$ml.get('policy')"
+          :class="{'mt-n2': $vuetify.breakpoint.xsOnly, 'mt-4': $vuetify.breakpoint.smAndUp}" v-text="$ml.get('policy')"
         ></div>
       </div>
       <!--<v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>-->
@@ -77,13 +77,13 @@
 
       <v-layout class="end-bar hidden-sm-and-down pl-n8">
         <v-flex >
-          <v-btn style="color:#3b4cc3" class="pt-3" text >
+          <v-btn style="color:#147dc5" class="pt-3" text >
             <button v-for="lang in $ml.list" :key="lang" @click="$ml.change(lang)" v-text="lang" />
           </v-btn>
         </v-flex>
         <!--<v-flex>
            <v-btn icon class="pt-0">
-            <v-app-bar-nav-icon style="color:#3b4cc3"></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon style="color:#147dc5"></v-app-bar-nav-icon>
           </v-btn> 
         </v-flex>-->
       </v-layout>

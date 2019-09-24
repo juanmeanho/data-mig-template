@@ -22,6 +22,7 @@
       <div style="width:230px;">
         <div>
           <v-slider
+            class="ml-3"
             v-model="ex3.val"
             :tick-labels="years"
             value="years"
@@ -32,8 +33,8 @@
             v-if="years"
           ></v-slider>
 
-          <div class="text-center" v-if="years">
-            <v-btn class="ml-1" width="215px" tile color="#f05a23" dark @click="clean()">Reset</v-btn>
+          <div class="text-center ml-3" v-if="years">
+            <v-btn class="ml-1 font-button pt-1" width="215px" tile color="#f05a23" dark @click="clean()">Reset</v-btn>
           </div>
           <div class="mt-12 mr-12 pr-12">
             <!-- <v-img src="@/assets/bid.png" class="mr-12 ml-n12" width="85px" height="auto"></v-img> -->
@@ -55,8 +56,8 @@
           :class="{'mt-n4': $vuetify.breakpoint.xsOnly,'mt-n3': $vuetify.breakpoint.smAndUp}"
         >{{ nu_id }}</div>-->
         <div
-          class="flujos"
-          :class="{'mt-n2': $vuetify.breakpoint.xsOnly, 'mt-n1': $vuetify.breakpoint.smAndUp}"
+          class="flujos "
+          :class="{'mt-n2': $vuetify.breakpoint.xsOnly, 'pt-4': $vuetify.breakpoint.smAndUp}"
           v-text="$ml.get('flow')"
         ></div>
       </div>
@@ -65,13 +66,13 @@
 
       <v-layout class="end-bar hidden-sm-and-down pl-n8">
         <v-flex>
-          <v-btn style="color:#3b4cc3" class="pt-3" text>
+          <v-btn style="color:#147dc5" class="pt-3" text>
             <button v-for="lang in $ml.list" :key="lang" @click="$ml.change(lang)" v-text="lang" />
           </v-btn>
         </v-flex>
         <!--<v-flex>
            <v-btn icon class="pt-0">
-            <v-app-bar-nav-icon style="color:#3b4cc3"></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon style="color:#147dc5"></v-app-bar-nav-icon>
           </v-btn> 
         </v-flex>-->
       </v-layout>

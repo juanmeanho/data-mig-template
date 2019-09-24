@@ -1,6 +1,6 @@
 <template>
   <v-card class="rounded-card" width="100%">
-    <v-img class="white--text" height="860px" src="@/assets/hero.png">
+    <v-img class="white--text" height="860px" style="opacity:0.90" src="@/assets/hero.png">
       <!-- Toolbar -->
       <toolbar></toolbar>
 
@@ -325,7 +325,7 @@ export default {
 
 .dash-download {
   border-top: 0.5px solid;
-  width: 170px;
+  width: 145px;
   color: #147dc5;
 }
 .download-link {
@@ -365,6 +365,10 @@ export default {
   color: #147dc5;
 }
 
+.font-button {
+  font-weight: 900;
+  font-family: "Hind Guntur", sans-serif;
+}
 .datasets-description {
   height: 100px;
   font-family: "Hind Guntur", sans-serif;
@@ -404,7 +408,6 @@ export default {
 }
 
 .proyecto-descripcion {
-  height: 325px;
   font-family: "Hind Guntur", sans-serif;
   font-size: 16px;
   font-weight: 500;
