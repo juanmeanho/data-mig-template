@@ -247,7 +247,10 @@ export default {
   }),
   methods: {
     async getResource() {
-      let resource = await axios.get("//backend.datamig.org/en/api/resource");
+      let resource = await axios.get(
+        "//8r1uaedksb.execute-api.us-east-1.amazonaws.com/api/resource"
+      );
+      //let resource = await axios.get("//backend.datamig.org/en/api/resource");
       this.resources = await resource.data.data;
     }
   },

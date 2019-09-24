@@ -30,7 +30,7 @@
           <v-btn class="ml-1" width="215px" tile color="#f05a23" dark>Reset</v-btn>
         </div>-->
         <div class="mt-12 mr-12 pr-12">
-          <v-img src="@/assets/bid.png" class="mr-12 ml-n12" width="85px" height="auto"></v-img>
+           <a href="https://www.iadb.org"><v-img src="@/assets/bid.png" class="mr-12 ml-n12" width="85px" height="auto"></v-img></a>
         </div>
       </div>          
     </v-footer>
@@ -38,7 +38,7 @@
 
     <v-app-bar app clipped-left height="104px">
       <div class="logo hidden-sm-and-down">
-        <img src="@/assets/logo-dm-1.png" class="ml-4 mt-4" />
+        <a href="./"> <img src="@/assets/logo-dm-1.png" class="ml-4 mt-4" /></a>
       </div>
       <div
         class="item-bar"
@@ -15147,7 +15147,9 @@ export default {
       this.colorScale = d3.scaleOrdinal(this.colors);
     },
     async getIndicators() {
-      let data = await axios.get("//migi.datamig.org/node/data");
+      
+      let data = await axios.get("https://8r1uaedksb.execute-api.us-east-1.amazonaws.com/api/indicator")
+      //let data = await axios.get("//migi.datamig.org/node/data");
       /*let countries = await axios.get(
         "//datamig.org/menuv2/countries.json"
       );
@@ -15476,8 +15478,9 @@ export default {
           d.description != undefined
         );
       });
-      var url =
-        "//migi.datamig.org/category/list?id_subject=" + subject_id;
+      
+      var url = "//8r1uaedksb.execute-api.us-east-1.amazonaws.com/api/indicator/category/?id_subject=" + subject_id;
+      //var url ="//migi.datamig.org/category/list
       var categories = await axios.get(url);
       if (categories.length > 0) {
         categories.sort(function(a, b) {

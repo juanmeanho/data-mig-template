@@ -22,29 +22,36 @@
       <div style="width:230px;">
         <div>
           <v-slider
-            v-model="ex3.val"
-            :tick-labels="years"
+            v-model="ex3.val"            
             value="years"
             min="1"
             :max="maxYears"
             ticks="always"
+            tick-size="5"
+            :thumb-size="70"
+            thumb-label="always"
             @change="changeYear"
             v-if="years"
-          ></v-slider>
+          >
+            <template v-slot:thumb-label="props">
+              <v-icon dark>{{ years[props.value-1] }}</v-icon>
+            </template>
+          </v-slider>
 
           <div class="text-center" v-if="years">
             <v-btn class="ml-1" width="215px" tile color="#f05a23" dark @click="clean()">Reset</v-btn>
           </div>
-          <div class="mt-12 mr-12 pr-12">
-            <!-- <v-img src="@/assets/bid.png" class="mr-12 ml-n12" width="85px" height="auto"></v-img> -->
+          <div class="mt-12 mr-12 pr-12 text-center">             
+            <a href="https://www.iadb.org"><v-img src="@/assets/bid.png" class="mt-1 ml-4" width="85px" height="auto"></v-img></a>            
           </div>
         </div>
       </div>
+      <div class="mt-12 ml-4 mr-12 pr-12 indicators-text" v-text="$ml.get('flow_source')"></div>
     </v-navigation-drawer>
 
     <v-app-bar app clipped-left height="104px">
       <div class="logo hidden-sm-and-down">
-        <img src="@/assets/logo-dm-1.png" class="ml-4 mt-4" />
+        <a href="./"> <img src="@/assets/logo-dm-1.png" class="ml-4 mt-4" /></a>
       </div>
       <div
         class="item-bar"
@@ -15052,9 +15059,9 @@ export default {
     //Toolbar
   },
   data: () => ({
-    country_selected:null,
-    widthContainer:null,
-    heightContainer:null,
+    country_selected: null,
+    widthContainer: null,
+    heightContainer: null,
     maxYears: null,
     years: null,
     modalTitle: null,
@@ -15086,7 +15093,7 @@ export default {
     globalFlujosData: null,
     globalYear: null,
     globalISO: null,
-    flujos_data:null,
+    flujos_data: null,
     colors: [
       "#0c9ed9",
       "#fbb034",
@@ -15100,9 +15107,7 @@ export default {
       "#c7e5b4"
     ]
   }),
-  computed: {
-    
-  },
+  computed: {},
   methods: {
     clean() {
       d3.selectAll(".legendLinear").remove();
@@ -15113,14 +15118,14 @@ export default {
       this.drawSlider(this.globalFlujosData, this.globalYear, 2);
       this.addFlowCountries(this.globalFlujosData, this.globalYear);
     },
-    changeYear(value) {                  
+    changeYear(value) {
       if (d3.select(".layer_partner").classed("active")) {
         var filtered = this.flujos_data.filter(d => {
           return d.iso_destination == this.globalISO;
         });
-        this.drawPartners(filtered, this.years[value-1]);
+        this.drawPartners(filtered, this.years[value - 1]);
       } else {
-        this.addFlowCountries(this.flujos_data, this.years[value-1]);
+        this.addFlowCountries(this.flujos_data, this.years[value - 1]);
       }
     },
     /*onChange(event) {
@@ -15149,12 +15154,14 @@ export default {
       this.projection = d3
         .geoMercator()
         .scale(this.widthContainer / 2 / Math.PI)
-        .translate([this.widthContainer / 2.7,  this.heightContainer / 2]);
+        .translate([this.widthContainer / 2.7, this.heightContainer / 2]);
       this.colorScale = d3.scaleOrdinal(this.colors);
     },
     async getFlowCountries(id_visa) {
       //var files = [conf.data];
-      var url = "//flujos.datamig.org/node/data?id_visa=" + id_visa;
+      var url = "//8r1uaedksb.execute-api.us-east-1.amazonaws.com/api/flow?id_visa=" + id_visa;
+      
+      //var url = "//flujos.datamig.org/node/data?id_visa=" + id_visa;
       var values = await axios.get(url);
       this.flujos_data = await values.data;
 
@@ -15219,7 +15226,7 @@ export default {
         .keys();
 
       this.years = years.sort(d3.descending);
-      this.maxYears = years.length;      
+      this.maxYears = years.length;
 
       var range = [];
       var offset = Math.round(600 / years.length, 0);
@@ -15273,17 +15280,19 @@ export default {
 
           this.country_selected = d.properties.name;
 
-          if (!d3.select(".layer_partner").classed("active")) {            
+          if (!d3.select(".layer_partner").classed("active")) {
             d3.selectAll(".country-path").classed("lightgrey", true);
             d3.selectAll("." + iso).classed("lightgrey", false);
             d3.selectAll("." + iso).classed("country-selected", false);
 
-            var flujos_data_filtered_destination = this.flujos_data.filter(d => {
-              return d.iso_destination == iso;
-            });
-                      
+            var flujos_data_filtered_destination = this.flujos_data.filter(
+              d => {
+                return d.iso_destination == iso;
+              }
+            );
+
             this.drawSlider(flujos_data_filtered_destination, year, 2);
-            this.drawPartners(flujos_data_filtered_destination, year);            
+            this.drawPartners(flujos_data_filtered_destination, year);
           }
         });
       });
@@ -15296,20 +15305,18 @@ export default {
       });
 
       var numbers = filtered.map(d => d.number);
-      
+
       var scale = d3
         .scaleQuantile()
         .domain(numbers)
         .range(["#FFEBEE", "#E57373", "#F44336", "#B71C1C"]);
 
-
       var _quantiles = [];
-      var quantiles = scale.quantiles()
-      
-      _quantiles.push("0 - " + quantiles[0])      
-      _quantiles.push((quantiles[0]+1) +  " - " + quantiles[1])      
-      _quantiles.push((quantiles[1]+1) +  " - " + quantiles[2])            
-         
+      var quantiles = scale.quantiles();
+
+      _quantiles.push("0 - " + quantiles[0]);
+      _quantiles.push(quantiles[0] + 1 + " - " + quantiles[1]);
+      _quantiles.push(quantiles[1] + 1 + " - " + quantiles[2]);
 
       this.references = _quantiles;
       this.references_color = scale.range();
@@ -15324,7 +15331,7 @@ export default {
             enter
               .append("circle")
               .classed("circles-partners", true)
-              .attr("r", 5)              
+              .attr("r", 5)
               .attr("cx", d => {
                 var projection_x = this.projection([
                   d.longitude_origin,
@@ -15404,13 +15411,13 @@ export default {
         bottom: 0,
         left: 0
       };
-      this.width =  this.widthContainer - this.margin.left - this.margin.right;
-      this.height =  this.heightContainer - this.margin.top - this.margin.bottom;
+      this.width = this.widthContainer - this.margin.left - this.margin.right;
+      this.height = this.heightContainer - this.margin.top - this.margin.bottom;
       this.path = d3.geoPath().projection(this.projection);
-      
-      console.log(this.widthContainer)
-      console.log(this.heightContainer)
-      
+
+      console.log(this.widthContainer);
+      console.log(this.heightContainer);
+
       var svg = d3
         .select("#mapa")
         .append("svg")
@@ -15585,11 +15592,10 @@ export default {
       this.layer_flow.attr("transform", d3.event.transform);
       this.layer_partner.attr("transform", d3.event.transform);
 
-    this.layer_partner
-      .selectAll("circle")
-      .attr("r", 5 / d3.event.transform.k)  
-      .style("stroke-width", 1.5 / d3.event.transform.k);
-
+      this.layer_partner
+        .selectAll("circle")
+        .attr("r", 5 / d3.event.transform.k)
+        .style("stroke-width", 1.5 / d3.event.transform.k);
     },
     mapOnClick(map, layer_flow) {
       if ($("select").val() == 99) {
@@ -15598,7 +15604,7 @@ export default {
         layer_flow.classed("invisible", false);
       }
     },
-    clicked(k, x, z) {      
+    clicked(k, x, z) {
       var x = this.width / x;
       var y = this.height / z;
       var k = k;
@@ -15741,8 +15747,10 @@ export default {
     this.text_id = this.$route.params.text_id;
   },
   mounted() {
-    this.widthContainer = parseInt(d3.select('.v-content__wrap').style('width'));
-    this.heightContainer = this.widthContainer/2;
+    this.widthContainer = parseInt(
+      d3.select(".v-content__wrap").style("width")
+    );
+    this.heightContainer = this.widthContainer / 2;
     this.createMap();
   },
   output() {}

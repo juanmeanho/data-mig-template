@@ -37,7 +37,9 @@ export default new MLCreate({
       construction: "Under Construction",
       migration_tab: "Links",
       references_viz: "References",
-      description_viz: "Description"
+      description_viz: "Description",
+      flow_source:
+        "Source: United Nations, Department of Economic and Social Affairs, Population Division (2019)."
     }),
 
     new MLanguage("-ESP").create({
@@ -69,7 +71,9 @@ export default new MLCreate({
       construction: "Bajo Construcción",
       migration_tab: "Links",
       references_viz: "Referencias",
-      description_viz: "Descripción"
+      description_viz: "Descripción",
+      flow_source:
+        "Fuente: Naciones Unidas,Departamento de Asuntos Económicos y Sociales, División de Población (2019)."
     })
   ]
 });
