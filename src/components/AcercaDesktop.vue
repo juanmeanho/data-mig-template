@@ -3,11 +3,10 @@
     <v-container class="pa-2" fluid>
       <v-layout row wrap justify-center>
         <v-flex xs12 lg4 md12 class="ml-12">
-          <v-card flat class="mx-auto d-inline d-table-block ml-12 mt-19" width="352" id="project">
+          <v-card flat class="mx-auto d-inline d-table-block ml-12 mt-0" width="352" id="project">
             <v-card-text>
-              <div class="mt-12 acerca-de" v-text="$ml.get('about')"></div>
-              <div class="display-1 proyecto" v-text="$ml.get('project')">
-                <div class="dash-orange mt-5"></div>
+              <div class="mt-0 acerca-de" v-text="$ml.get('about')"></div>
+              <div class="display-1 proyecto mb-n4" v-text="$ml.get('project')">
               </div>
               <div class="proyecto-descripcion" v-text="$ml.get('project_desc')"></div>
             </v-card-text>

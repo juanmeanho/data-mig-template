@@ -41,14 +41,17 @@
               v-text="$ml.get('references')"
               @click="() => this.$vuetify.goTo('#references')"
             ></v-btn>
+
             <div class="hidden-sm-and-down flex-grow-1"></div>
             <div class="hidden-sm-and-down flex-grow-1"></div>
             <div class="hidden-sm-and-down flex-grow-1"></div>
             <div class="hidden-sm-and-down flex-grow-1"></div>
             <div class="hidden-sm-and-down flex-grow-1"></div>
+
             <v-btn class="hidden-sm-and-down grey--text text--lighten-2" text>
               <button v-for="lang in $ml.list" :key="lang" @click="$ml.change(lang)" v-text="lang" />
             </v-btn>
+
             <v-btn icon class="hidden-sm-and-down">
               <v-app-bar-nav-icon @click.stop="switchToolbar = !switchToolbar"></v-app-bar-nav-icon>
             </v-btn>
@@ -73,42 +76,43 @@
         </div>
         <!-- Toolbar Open-->
         <div v-show="!switchToolbar">
-          <v-app-bar color="white" flat height="104" width="100%">
+          <v-app-bar color="white" flat height="154" width="100%">
             <v-card
               flat
-              class="rounded-card pl-12 pt-10"
+              class="rounded-card pl-8 pt-12"
               color="rgba(150,150,150,0.1)"
-              height="104"
+              height="154"
               width="225"
             >
-              <v-img height="auto" max-width="104" class="mt-0" src="@/assets/group-22.png"></v-img>
+              <v-img height="auto" max-width="156" class="mt-2" src="@/assets/group-22.png"></v-img>
             </v-card>
-            <v-btn class="hidden-sm-and-down text-none ml-4 mt-2" text>
+
+            <v-btn class="hidden-sm-and-down custom-transform-class text-none" text href="//www.iadb.org" target="_blank">
               <span class="primer-item-toolbar" v-text="$ml.get('initiative')"></span>
             </v-btn>
             <div class="hidden-sm-and-down flex-grow-1"></div>
-            <v-btn class="hidden-sm-and-down custom-transform-class text-none mt-2" text>
-              <span class="items-toolbar" v-text="$ml.get('project')"></span>
+            <v-btn class="hidden-sm-and-down custom-transform-class text-none" text @click="() => this.$vuetify.goTo('#project')">
+              <span class="primer-item-toolbar" v-text="$ml.get('project')"></span>
             </v-btn>
             <div class="hidden-sm-and-down flex-grow-1"></div>
-            <v-btn class="hidden-sm-and-down custom-transform-class text-none mt-2" text>
-              <span class="items-toolbar" v-text="$ml.get('datasets')"></span>
+            <v-btn class="hidden-sm-and-down custom-transform-class text-none" text @click="() => this.$vuetify.goTo('#datasets')">
+              <span class="primer-item-toolbar" v-text="$ml.get('datasets')"></span>
             </v-btn>
             <div class="hidden-sm-and-down flex-grow-1"></div>
-            <v-btn class="hidden-sm-and-down custom-transform-class text-none mt-2" text>
-              <span class="items-toolbar" v-text="$ml.get('references')"></span>
+            <v-btn class="hidden-sm-and-down custom-transform-class text-none" text @click="() => this.$vuetify.goTo('#references')">
+              <span class="primer-item-toolbar" v-text="$ml.get('references')"></span>
             </v-btn>
+
             <div class="hidden-sm-and-down flex-grow-1"></div>
             <div class="hidden-sm-and-down flex-grow-1"></div>
             <div class="hidden-sm-and-down flex-grow-1"></div>
             <div class="hidden-sm-and-down flex-grow-1"></div>
             <div class="hidden-sm-and-down flex-grow-1"></div>
 
-            <v-btn class="hidden-sm-and-down mt-0 items-toolbar" text>
+            <v-btn class="hidden-sm-and-down mt-0 primer-item-toolbar" text>
               <button v-for="lang in $ml.list" :key="lang" @click="$ml.change(lang)" v-text="lang" />
             </v-btn>
-            <div class="hidden-sm-and-down flex-grow-1"></div>
-            <div class="hidden-sm-and-down flex-grow-1"></div>
+
 
             <v-btn icon class="mb-1 hidden-sm-and-down">
               <span>
@@ -177,23 +181,23 @@
     <template xs12>
       <v-container
         v-show="!switchToolbar"
-        class="pa-2"
         fluid
-        :class="{'mt-n12': $vuetify.breakpoint.mdAndUp}"
+        :class="{'mt-n12 pt-n12': $vuetify.breakpoint.mdAndUp}"
       >
-        <datamig-logo-desktop class="mt-n8"></datamig-logo-desktop>
-        <datamig-logo-mobile class="mt-n8"></datamig-logo-mobile>
+        <!--<datamig-logo-desktop class="mt-n12 pt-n12"></datamig-logo-desktop>-->
+        <datamig-logo-mobile class="mt-n12" :open="true"></datamig-logo-mobile>
       </v-container>
     </template>
+    
     <template xs12>
       <v-container
         v-show="switchToolbar"
-        class="pa-2"
+        class="pa-0"
         fluid
-        :class="{'mt-4': $vuetify.breakpoint.mdAndUp}"
+        :class="{'mt-8': $vuetify.breakpoint.mdAndUp}"
       >
-        <datamig-logo-desktop class="mt-n8"></datamig-logo-desktop>
-        <datamig-logo-mobile class="mt-2"></datamig-logo-mobile>
+        <!--<datamig-logo-desktop class="mt-n8"></datamig-logo-desktop>-->
+        <datamig-logo-mobile class="mt-9" :open="false"></datamig-logo-mobile>
       </v-container>
     </template>
   </v-layout>
@@ -276,8 +280,6 @@ export default {
 }
 
 .primer-item-toolbar {
-  width: 186px;
-  height: 102px;
   opacity: 0.79;
   font-family: "Hind Guntur", sans-serif;
   font-size: 16px;

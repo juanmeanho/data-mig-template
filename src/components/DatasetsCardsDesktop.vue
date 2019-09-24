@@ -24,14 +24,14 @@
             <div>
               <v-card-text class="mt-2 desc-dataset" v-text="$ml.get(card.text)"></v-card-text>
             </div>
-            <div style="background-color:#ccc;width:100%">
+            <div class="px-3" style="width:100%">
               <div class="download-link" style="width:80%;float:left">datos.cvs</div>
               <div class="download-link" style="width:20%;float:left">
                 <arrow-down />
               </div>
             </div>
-            <div class="dash-download mt-6"></div>
-            <div style="background-color:#ccc;width:100%" class="mt-2">
+            <div class="dash-download mt-6 ml-3"></div>
+            <div style="width:100%" class="mt-2 px-3">
               <div class="download-link" style="width:80%;float:left">metodologia.pdf</div>
               <div class="download-link" style="width:20%;float:left">
                 <arrow-down />
