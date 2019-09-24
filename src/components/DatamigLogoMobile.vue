@@ -16,9 +16,9 @@
       </v-flex>
       <v-flex xs4 sm8 offset-sm-2 lg6 offset-lg3>
         <v-layout justify-center>
-          <v-card flat color="transparent" width="60%" class="rounded-card mt-12 mb-12">
+          <v-card flat color="transparent" width="60%" class="rounded-card mt-4 mb-12">
             <v-card-title  class="text-hero-right"
-            :class="[open ? 'mb-7' : 'mb-10', {'text-hero-xs': $vuetify.breakpoint.xs}]">
+            :class="[open ? 'mb-2' : 'mb-5', {'text-hero-xs': $vuetify.breakpoint.xs}]">
               <v-flex mt-12>
                 <v-text-field v-text="$ml.get('datamig_desc')"></v-text-field>
               </v-flex>
